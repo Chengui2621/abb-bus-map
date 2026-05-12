@@ -723,6 +723,31 @@
             isMobile = window.innerWidth <= 768;
         });
 
+        // 百度坐标(BD09)转高德坐标(GCJ02)
+        function bd09togcj02(bd_lon, bd_lat) {
+            const x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+            const x = bd_lon - 0.0065;
+            const y = bd_lat - 0.006;
+            const z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+            const theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+            const gg_lng = z * Math.cos(theta);
+            const gg_lat = z * Math.sin(theta);
+            return [gg_lng, gg_lat];
+        }
+
+        // 转换站点坐标
+        function convertStopCoordinates(stop) {
+            if (stop.lng && stop.lat) {
+                const converted = bd09togcj02(stop.lng, stop.lat);
+                return {
+                    ...stop,
+                    lng: converted[0],
+                    lat: converted[1]
+                };
+            }
+            return stop;
+        }
+
         function initMap() {
             map = new AMap.Map('map', {
                 zoom: 11,
@@ -744,15 +769,20 @@
             });
         }
 
-        // 加载数据
+        // 加载数据并转换坐标
         fetch('routes_data.json?v=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
-                routesData = data;
+                // 转换所有站点的百度坐标为高德坐标
+                routesData = data.map(route => ({
+                    ...route,
+                    stops: route.stops.map(convertStopCoordinates)
+                }));
                 updateStats();
                 renderRouteList();
                 renderMobileRouteList();
                 checkGeocodedStops();
+                console.log('坐标转换完成：百度BD09 -> 高德GCJ02');
             })
             .catch(error => {
                 console.error('Error loading routes:', error);
