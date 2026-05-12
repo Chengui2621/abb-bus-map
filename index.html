@@ -434,13 +434,15 @@
             });
         }
 
-        fetch('routes_data.json')
+        // 加载数据（添加时间戳避免缓存）
+        fetch('routes_data.json?v=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 routesData = data;
                 updateStats();
                 renderRouteList();
                 checkGeocodedStops();
+                console.log('数据加载成功，共', routesData.length, '条线路');
             })
             .catch(error => {
                 console.error('Error loading routes:', error);
@@ -786,15 +788,23 @@
         }
 
         function locateStop(stopName, routeIndex, stopIndex) {
-            const coord = stopCoordinates[stopName];
+            // 优先从routesData中获取坐标
+            const route = routesData[routeIndex];
+            const stop = route.stops[stopIndex];
+            let coord = null;
+            
+            if (stop.lng && stop.lat) {
+                coord = [stop.lng, stop.lat];
+            } else if (stopCoordinates[stopName]) {
+                coord = stopCoordinates[stopName];
+            }
+            
             if (coord) {
                 map.setCenter(coord);
                 map.setZoom(17);
                 
-                const route = routesData[routeIndex];
                 const type = getRouteType(route.name);
                 const color = getRouteColor(type);
-                const stop = route.stops[stopIndex];
                 
                 showStopInfo(stop, stopIndex, color);
                 
@@ -809,7 +819,7 @@
                     }
                 });
             } else {
-                alert('该站点暂无坐标信息，请先点击"获取站点坐标"按钮');
+                alert('该站点暂无坐标信息');
             }
         }
 
