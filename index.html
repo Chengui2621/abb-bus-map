@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ABB班车线路查询系统</title>
-    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=2934135c2c94f38359572ca4f5be03e9&plugin=AMap.Geocoder,AMap.Scale,AMap.ToolBar,AMap.LabelsLayer"></script>
+    <script src="https://api.map.baidu.com/api?v=3.0&ak=GvhbLgrt5Yab5cK1k8a8y8Q8"></script>
     <style>
         * {
             margin: 0;
@@ -484,24 +483,6 @@
             padding: 20px;
             color: #667eea;
         }
-        .geocode-btn {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .geocode-btn:hover {
-            background: #5a6fd6;
-        }
         .progress-bar {
             position: fixed;
             top: 0;
@@ -511,37 +492,6 @@
             transition: width 0.3s;
             z-index: 9999;
             display: none;
-        }
-        .route-path-info {
-            position: absolute;
-            bottom: 120px;
-            left: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            max-width: 300px;
-            display: none;
-        }
-        .route-path-info.show {
-            display: block;
-        }
-        .path-stop-list {
-            font-size: 12px;
-            color: #666;
-            margin-top: 10px;
-        }
-        .path-stop-item {
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
-        }
-        .path-stop-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 8px;
         }
         
         /* 响应式布局 */
@@ -566,11 +516,6 @@
                 right: 10px;
                 padding: 10px;
                 font-size: 11px;
-            }
-            .geocode-btn {
-                top: 10px;
-                font-size: 12px;
-                padding: 8px 15px;
             }
             .map-hint {
                 padding: 15px 20px;
@@ -626,12 +571,6 @@
         
         <div class="main-content">
             <div id="map"></div>
-            <button class="geocode-btn" id="geocodeBtn" onclick="startGeocoding()">获取站点坐标</button>
-            
-            <div class="route-path-info" id="routePathInfo">
-                <h4 id="pathTitle">线路走向</h4>
-                <div class="path-stop-list" id="pathStopList"></div>
-            </div>
             
             <div class="detail-panel" id="detailPanel">
                 <div class="detail-header">
@@ -668,7 +607,6 @@
             <span class="mobile-panel-toggle">▼</span>
         </div>
         <div class="mobile-panel-content">
-            <!-- 搜索和筛选 -->
             <input type="text" class="search-box-mobile" id="searchBoxMobile" placeholder="搜索线路或站点...">
             <div class="filter-tabs-mobile">
                 <button class="filter-tab-mobile active" data-filter="all" onclick="setMobileFilter('all')">全部</button>
@@ -676,7 +614,6 @@
                 <button class="filter-tab-mobile" data-filter="B" onclick="setMobileFilter('B')">B线</button>
             </div>
             
-            <!-- 线路列表折叠区 -->
             <div class="accordion-section">
                 <div class="accordion-header" id="routeAccordionHeader" onclick="toggleAccordion('route')">
                     <span>📋 线路列表 (<span id="routeCount">0</span>)</span>
@@ -689,7 +626,6 @@
                 </div>
             </div>
             
-            <!-- 站点列表折叠区 -->
             <div class="accordion-section">
                 <div class="accordion-header" id="stopAccordionHeader" onclick="toggleAccordion('stop')">
                     <span>📍 站点列表</span>
@@ -709,80 +645,33 @@
     <script>
         let map;
         let routesData = [];
-        let currentLayers = [];
+        let currentOverlays = [];
         let currentFilter = 'all';
         let mobileFilter = 'all';
-        let geocoder;
-        let stopCoordinates = {};
-        let labelsLayer;
         let currentRouteIndex = null;
         let isMobile = window.innerWidth <= 768;
         
-        // 监听窗口大小变化
         window.addEventListener('resize', () => {
             isMobile = window.innerWidth <= 768;
         });
 
-        // 百度坐标(BD09)转高德坐标(GCJ02)
-        function bd09togcj02(bd_lon, bd_lat) {
-            const x_pi = 3.14159265358979324 * 3000.0 / 180.0;
-            const x = bd_lon - 0.0065;
-            const y = bd_lat - 0.006;
-            const z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
-            const theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
-            const gg_lng = z * Math.cos(theta);
-            const gg_lat = z * Math.sin(theta);
-            return [gg_lng, gg_lat];
-        }
-
-        // 转换站点坐标
-        function convertStopCoordinates(stop) {
-            if (stop.lng && stop.lat) {
-                const converted = bd09togcj02(stop.lng, stop.lat);
-                return {
-                    ...stop,
-                    lng: converted[0],
-                    lat: converted[1]
-                };
-            }
-            return stop;
-        }
-
         function initMap() {
-            map = new AMap.Map('map', {
-                zoom: 11,
-                center: [118.0894, 24.4798],
-                viewMode: '2D'
-            });
-            
-            map.addControl(new AMap.Scale());
-            map.addControl(new AMap.ToolBar());
-            
-            labelsLayer = new AMap.LabelsLayer({
-                zooms: [3, 20],
-                zIndex: 1000
-            });
-            map.add(labelsLayer);
-            
-            geocoder = new AMap.Geocoder({
-                city: '厦门'
-            });
+            map = new BMap.Map('map');
+            map.centerAndZoom(new BMap.Point(118.0894, 24.4798), 11);
+            map.enableScrollWheelZoom(true);
+            map.addControl(new BMap.ScaleControl());
+            map.addControl(new BMap.NavigationControl());
         }
 
-        // 加载数据并转换坐标
+        // 加载数据
         fetch('routes_data.json?v=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
-                // 转换所有站点的百度坐标为高德坐标
-                routesData = data.map(route => ({
-                    ...route,
-                    stops: route.stops.map(convertStopCoordinates)
-                }));
+                routesData = data;
                 updateStats();
                 renderRouteList();
                 renderMobileRouteList();
                 checkGeocodedStops();
-                console.log('坐标转换完成：百度BD09 -> 高德GCJ02');
             })
             .catch(error => {
                 console.error('Error loading routes:', error);
@@ -802,14 +691,10 @@
                 route.stops.forEach(stop => {
                     if (stop.lat && stop.lng) {
                         count++;
-                        stopCoordinates[stop.name] = [stop.lng, stop.lat];
                     }
                 });
             });
             document.getElementById('geoCoded').textContent = count;
-            if (count > 0) {
-                document.getElementById('geocodeBtn').textContent = '已获取 ' + count + ' 个坐标';
-            }
         }
 
         function updateStats() {
@@ -831,7 +716,6 @@
             return '#4CAF50';
         }
 
-        // 桌面端渲染线路列表
         function renderRouteList() {
             const list = document.getElementById('routeList');
             const searchTerm = document.getElementById('searchBox').value.toLowerCase();
@@ -878,7 +762,6 @@
             }).join('');
         }
 
-        // 移动端渲染线路列表
         function renderMobileRouteList() {
             const list = document.getElementById('routeListMobile');
             const searchTerm = document.getElementById('searchBoxMobile').value.toLowerCase();
@@ -906,7 +789,6 @@
                 const typeClass = type === 'A' ? 'type-a' : type === 'B' ? 'type-b' : 'type-other';
                 const typeLabel = type === 'A' ? 'A线' : type === 'B' ? 'B线' : '其他';
                 const firstStop = route.stops[0];
-                const lastStop = route.stops[route.stops.length - 1];
                 const routeIndex = routesData.indexOf(route);
                 
                 return `
@@ -925,7 +807,6 @@
             }).join('');
         }
 
-        // 移动端选择线路
         function selectMobileRoute(index) {
             if (currentRouteIndex === index) return;
             currentRouteIndex = index;
@@ -934,87 +815,30 @@
             const type = getRouteType(route.name);
             const color = getRouteColor(type);
             
-            // 更新标题
             document.getElementById('mobilePanelTitle').textContent = route.name;
-            
-            // 更新线路列表样式
             renderMobileRouteList();
-            
-            // 渲染站点列表
             renderMobileStopList(route, color);
             
-            // 展开站点列表
             document.getElementById('stopAccordionContent').classList.add('expanded');
             document.getElementById('stopAccordionHeader').classList.add('active');
-            
-            // 折叠线路列表
             document.getElementById('routeAccordionContent').classList.remove('expanded');
             document.getElementById('routeAccordionHeader').classList.remove('active');
-            
-            // 折叠面板
             document.getElementById('mobilePanel').classList.add('collapsed');
             
-            // 显示地图
             clearMap();
             document.getElementById('mapHint').classList.add('hidden');
             
-            // 绘制线路
-            const path = [];
-            route.stops.forEach((stop, i) => {
-                const coord = stopCoordinates[stop.name] || (stop.lng && stop.lat ? [stop.lng, stop.lat] : null);
-                if (coord) {
-                    path.push(coord);
-                    
-                    // 绘制站点标记
-                    const glowCircle = new AMap.CircleMarker({
-                        center: coord,
-                        radius: 18,
-                        fillColor: color,
-                        strokeColor: color,
-                        strokeWeight: 0,
-                        fillOpacity: 0.3
-                    });
-                    glowCircle.setMap(map);
-                    
-                    const marker = new AMap.CircleMarker({
-                        center: coord,
-                        radius: 10,
-                        fillColor: color,
-                        strokeColor: '#fff',
-                        strokeWeight: 3,
-                        fillOpacity: 1
-                    });
-                    marker.setMap(map);
-                    
-                    currentLayers.push(glowCircle, marker);
-                }
-            });
-            
-            // 绘制线路
-            if (path.length > 1) {
-                const polyline = new AMap.Polyline({
-                    path: path,
-                    strokeColor: color,
-                    strokeWeight: 6,
-                    strokeOpacity: 1,
-                    showDir: true
-                });
-                polyline.setMap(map);
-                currentLayers.push(polyline);
-                
-                map.setFitView(currentLayers, true, [50, 50, 50, 50]);
-            }
+            drawRoute(route, color);
         }
 
-        // 移动端渲染站点列表
         function renderMobileStopList(route, color) {
             const list = document.getElementById('stopListMobile');
             const routeIndex = routesData.indexOf(route);
             
             list.innerHTML = route.stops.map((stop, i) => {
-                const hasCoord = stopCoordinates[stop.name] || (stop.lat && stop.lng);
+                const hasCoord = stop.lng && stop.lat;
                 return `
-                    <div class="stop-item-mobile" onclick="locateMobileStop(${routeIndex}, ${i}, '${color}')">
+                    <div class="stop-item-mobile" onclick="locateMobileStop(${routeIndex}, ${i})">
                         <div class="stop-number-mobile">${i + 1}</div>
                         <div class="stop-info-mobile">
                             <div class="stop-name-mobile">${stop.name} ${hasCoord ? '📍' : ''}</div>
@@ -1025,58 +849,40 @@
             }).join('');
         }
 
-        // 移动端定位站点
-        function locateMobileStop(routeIndex, stopIndex, color) {
+        function locateMobileStop(routeIndex, stopIndex) {
             const route = routesData[routeIndex];
             const stop = route.stops[stopIndex];
             
-            let coord = null;
             if (stop.lng && stop.lat) {
-                coord = [stop.lng, stop.lat];
-            } else if (stopCoordinates[stop.name]) {
-                coord = stopCoordinates[stop.name];
-            }
-            
-            if (coord) {
-                map.setCenter(coord);
-                map.setZoom(17);
-                
-                // 折叠面板
+                const point = new BMap.Point(stop.lng, stop.lat);
+                map.centerAndZoom(point, 17);
                 document.getElementById('mobilePanel').classList.add('collapsed');
                 
-                // 显示信息窗
-                const infoWindow = new AMap.InfoWindow({
-                    content: `
-                        <div style="padding: 10px; min-width: 150px;">
-                            <h4 style="margin: 0 0 5px 0; color: ${color};">${stop.name}</h4>
-                            <p style="margin: 0; font-size: 12px; color: #666;">时间: ${stop.time || '未知'}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 11px; color: #999;">${stop.location}</p>
-                        </div>
-                    `,
-                    offset: new AMap.Pixel(0, -20)
-                });
-                infoWindow.open(map, coord);
+                const infoWindow = new BMap.InfoWindow(`
+                    <div style="padding: 10px; min-width: 150px;">
+                        <h4 style="margin: 0 0 5px 0; color: #667eea;">${stop.name}</h4>
+                        <p style="margin: 0; font-size: 12px; color: #666;">时间: ${stop.time || '未知'}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 11px; color: #999;">${stop.location}</p>
+                    </div>
+                `);
+                map.openInfoWindow(infoWindow, point);
             } else {
                 alert('该站点暂无坐标信息');
             }
         }
 
-        // 移动端折叠/展开面板
         function toggleMobilePanel() {
             const panel = document.getElementById('mobilePanel');
             panel.classList.toggle('collapsed');
         }
 
-        // 移动端折叠/展开手风琴
         function toggleAccordion(type) {
             const content = document.getElementById(type + 'AccordionContent');
             const header = document.getElementById(type + 'AccordionHeader');
-            
             content.classList.toggle('expanded');
             header.classList.toggle('active');
         }
 
-        // 移动端筛选
         function setMobileFilter(filter) {
             mobileFilter = filter;
             document.querySelectorAll('.filter-tab-mobile').forEach(tab => {
@@ -1088,7 +894,6 @@
             renderMobileRouteList();
         }
 
-        // 桌面端显示线路详情
         function showRouteDetail(index) {
             if (currentRouteIndex === index) return;
             currentRouteIndex = index;
@@ -1106,9 +911,9 @@
             
             const content = document.getElementById('detailContent');
             content.innerHTML = route.stops.map((stop, i) => {
-                const hasCoord = stopCoordinates[stop.name] || (stop.lat && stop.lng);
+                const hasCoord = stop.lng && stop.lat;
                 return `
-                    <div class="stop-item" onclick="locateStop('${stop.name}', ${index}, ${i})">
+                    <div class="stop-item" onclick="locateStop(${index}, ${i})">
                         <div class="stop-number">${i + 1}</div>
                         <div class="stop-info">
                             <div class="stop-name">${stop.name} ${hasCoord ? '📍' : ''}</div>
@@ -1124,81 +929,67 @@
             clearMap();
             document.getElementById('mapHint').classList.add('hidden');
             
-            const path = [];
+            drawRoute(route, color);
+        }
+
+        function drawRoute(route, color) {
+            const points = [];
             route.stops.forEach((stop, i) => {
-                const coord = stopCoordinates[stop.name] || (stop.lng && stop.lat ? [stop.lng, stop.lat] : null);
-                if (coord) {
-                    path.push(coord);
+                if (stop.lng && stop.lat) {
+                    const point = new BMap.Point(stop.lng, stop.lat);
+                    points.push(point);
                     
-                    const glowCircle = new AMap.CircleMarker({
-                        center: coord,
-                        radius: 18,
-                        fillColor: color,
-                        strokeColor: color,
-                        strokeWeight: 0,
-                        fillOpacity: 0.3
+                    // 创建标注
+                    const marker = new BMap.Marker(point, {
+                        icon: new BMap.Icon(
+                            'data:image/svg+xml;base64,' + btoa(`
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+                                    <circle cx="15" cy="15" r="12" fill="${color}" stroke="white" stroke-width="2"/>
+                                    <text x="15" y="20" text-anchor="middle" fill="white" font-size="12">${i + 1}</text>
+                                </svg>
+                            `),
+                            new BMap.Size(30, 30)
+                        )
                     });
-                    glowCircle.setMap(map);
-                    
-                    const marker = new AMap.CircleMarker({
-                        center: coord,
-                        radius: 10,
-                        fillColor: color,
-                        strokeColor: '#fff',
-                        strokeWeight: 3,
-                        fillOpacity: 1
-                    });
-                    marker.setMap(map);
-                    
-                    currentLayers.push(glowCircle, marker);
+                    map.addOverlay(marker);
+                    currentOverlays.push(marker);
                 }
             });
             
-            if (path.length > 1) {
-                const polyline = new AMap.Polyline({
-                    path: path,
+            // 绘制线路
+            if (points.length > 1) {
+                const polyline = new BMap.Polyline(points, {
                     strokeColor: color,
-                    strokeWeight: 6,
-                    strokeOpacity: 1,
-                    showDir: true
+                    strokeWeight: 4,
+                    strokeOpacity: 0.8
                 });
-                polyline.setMap(map);
-                currentLayers.push(polyline);
+                map.addOverlay(polyline);
+                currentOverlays.push(polyline);
                 
-                map.setFitView(currentLayers, true, [80, 80, 80, 80]);
+                // 调整视野
+                map.setViewport(points);
             }
         }
 
-        // 桌面端定位站点
-        function locateStop(stopName, routeIndex, stopIndex) {
+        function locateStop(routeIndex, stopIndex) {
             const route = routesData[routeIndex];
             const stop = route.stops[stopIndex];
-            let coord = null;
             
             if (stop.lng && stop.lat) {
-                coord = [stop.lng, stop.lat];
-            } else if (stopCoordinates[stop.name]) {
-                coord = stopCoordinates[stop.name];
-            }
-            
-            if (coord) {
-                map.setCenter(coord);
-                map.setZoom(17);
+                const point = new BMap.Point(stop.lng, stop.lat);
+                map.centerAndZoom(point, 17);
                 
                 const type = getRouteType(route.name);
                 const color = getRouteColor(type);
                 
-                const infoWindow = new AMap.InfoWindow({
-                    content: `
-                        <div style="padding: 15px; min-width: 200px;">
-                            <h4 style="margin: 0 0 10px 0; color: ${color};">${stop.name}</h4>
-                            <p style="margin: 5px 0; font-size: 14px;"><strong>时间:</strong> ${stop.time || '未知'}</p>
-                            <p style="margin: 5px 0; font-size: 12px; color: #666;">${stop.location}</p>
-                        </div>
-                    `,
-                    offset: new AMap.Pixel(0, -30)
-                });
-                infoWindow.open(map, coord);
+                const infoWindow = new BMap.InfoWindow(`
+                    <div style="padding: 15px; min-width: 200px;">
+                        <h4 style="margin: 0 0 10px 0; color: ${color};">${stop.name}</h4>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>时间:</strong> ${stop.time || '未知'}</p>
+                        <p style="margin: 5px 0; font-size: 12px; color: #666;">${stop.location}</p>
+                    </div>
+                `);
+                map.openInfoWindow(infoWindow, point);
             } else {
                 alert('该站点暂无坐标信息');
             }
@@ -1213,8 +1004,8 @@
         }
 
         function clearMap() {
-            currentLayers.forEach(layer => layer.setMap(null));
-            currentLayers = [];
+            currentOverlays.forEach(overlay => map.removeOverlay(overlay));
+            currentOverlays = [];
         }
 
         // 搜索监听
