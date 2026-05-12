@@ -264,6 +264,29 @@
             border-radius: 50%;
             margin-right: 8px;
         }
+        .map-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+        .map-hint.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .map-hint p {
+            margin: 0;
+            color: #667eea;
+            font-size: 16px;
+            font-weight: bold;
+        }
         .empty-state {
             text-align: center;
             padding: 40px;
@@ -401,6 +424,10 @@
                     <span>B线 (上班)</span>
                 </div>
             </div>
+            
+            <div class="map-hint" id="mapHint">
+                <p>👈 点击左侧线路查看详情</p>
+            </div>
         </div>
     </div>
 
@@ -537,15 +564,25 @@
             }).join('');
         }
 
+        // 当前显示的线路索引
+        let currentRouteIndex = null;
+        
         function showRouteDetail(index) {
+            // 如果点击的是同一线路，不做任何操作
+            if (currentRouteIndex === index) return;
+            currentRouteIndex = index;
+            
             const route = routesData[index];
             const type = getRouteType(route.name);
             const color = getRouteColor(type);
             
+            // 更新侧边栏激活状态
             document.querySelectorAll('.route-card').forEach(card => card.classList.remove('active'));
             document.querySelector(`.route-card[data-index="${index}"]`)?.classList.add('active');
             
+            // 更新详情面板
             document.getElementById('detailTitle').textContent = route.name;
+            document.getElementById('detailTitle').style.color = color;
             document.getElementById('detailSubtitle').textContent = `${route.stops.length}个站点 · 点击站点在地图上定位`;
             
             const content = document.getElementById('detailContent');
@@ -566,6 +603,9 @@
             document.getElementById('detailPanel').classList.add('show');
             
             clearMap();
+            
+            // 隐藏提示
+            document.getElementById('mapHint').classList.add('hidden');
             
             const path = [];
             
@@ -827,6 +867,10 @@
             document.getElementById('detailPanel').classList.remove('show');
             document.getElementById('routePathInfo').classList.remove('show');
             document.querySelectorAll('.route-card').forEach(card => card.classList.remove('active'));
+            clearMap();
+            currentRouteIndex = null;
+            // 显示提示
+            document.getElementById('mapHint').classList.remove('hidden');
         }
 
         function clearMap() {
