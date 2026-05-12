@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABB班车线路查询系统</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=2934135c2c94f38359572ca4f5be03e9&plugin=AMap.Geocoder,AMap.Scale,AMap.ToolBar,AMap.LabelsLayer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 400px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .search-section {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .filter-tab {
+            padding: 6px 12px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        .filter-tab:hover, .filter-tab.active {
+            background: #667eea;
+            color: white;
+        }
+        .route-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .route-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .route-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .route-card.active {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .route-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .route-info {
+            font-size: 12px;
+            color: #666;
+        }
+        .route-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-right: 5px;
+        }
+        .type-a { background: #ffebee; color: #c62828; }
+        .type-b { background: #e3f2fd; color: #1565c0; }
+        .type-other { background: #e8f5e9; color: #2e7d32; }
+        .main-content {
+            flex: 1;
+            position: relative;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        .detail-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 380px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow: hidden;
+            display: none;
+        }
+        .detail-panel.show {
+            display: block;
+        }
+        .detail-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+        .detail-header h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+        .detail-content {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 80px);
+        }
+        .stop-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border-left: 3px solid #667eea;
+            margin-bottom: 8px;
+            background: #f8f9ff;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .stop-item:hover {
+            background: #e8eaff;
+            transform: translateX(5px);
+        }
+        .stop-number {
+            width: 28px;
+            height: 28px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .stop-info {
+            flex: 1;
+        }
+        .stop-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+        .stop-time {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+        .stop-location {
+            font-size: 11px;
+            color: #666;
+        }
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+        }
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .legend h4 {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            margin: 5px 0;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        .geocode-btn {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .geocode-btn:hover {
+            background: #5a6fd6;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #667eea;
+            transition: width 0.3s;
+            z-index: 9999;
+            display: none;
+        }
+        .route-path-info {
+            position: absolute;
+            bottom: 120px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-width: 300px;
+            display: none;
+        }
+        .route-path-info.show {
+            display: block;
+        }
+        .path-stop-list {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .path-stop-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .path-stop-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="header">
+                <h1>ABB班车线路查询</h1>
+                <p>日常班车运行时刻表 - 2026年3月</p>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalRoutes">0</div>
+                    <div class="stat-label">线路总数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalStops">0</div>
+                    <div class="stat-label">站点总数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="geoCoded">0</div>
+                    <div class="stat-label">已定位</div>
+                </div>
+            </div>
+            <div class="search-section">
+                <input type="text" class="search-box" id="searchBox" placeholder="搜索线路或站点名称...">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="A">A线</button>
+                    <button class="filter-tab" data-filter="B">B线</button>
+                </div>
+            </div>
+            <div class="route-list" id="routeList">
+                <div class="loading">正在加载数据...</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div id="map"></div>
+            <button class="geocode-btn" id="geocodeBtn" onclick="startGeocoding()">获取站点坐标</button>
+            
+            <div class="route-path-info" id="routePathInfo">
+                <h4 id="pathTitle">线路走向</h4>
+                <div class="path-stop-list" id="pathStopList"></div>
+            </div>
+            
+            <div class="detail-panel" id="detailPanel">
+                <div class="detail-header">
+                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                    <h2 id="detailTitle">线路详情</h2>
+                    <p id="detailSubtitle">点击站点在地图上定位</p>
+                </div>
+                <div class="detail-content" id="detailContent">
+                </div>
+            </div>
+            
+            <div class="legend">
+                <h4>线路类型</h4>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #FF5722;"></div>
+                    <span>A线 (上班)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #2196F3;"></div>
+                    <span>B线 (上班)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let routesData = [];
+        let currentLayers = [];
+        let currentFilter = 'all';
+        let geocoder;
+        let stopCoordinates = {};
+        let labelsLayer;
+
+        function initMap() {
+            map = new AMap.Map('map', {
+                zoom: 11,
+                center: [118.0894, 24.4798],
+                viewMode: '2D'
+            });
+            
+            map.addControl(new AMap.Scale());
+            map.addControl(new AMap.ToolBar());
+            
+            labelsLayer = new AMap.LabelsLayer({
+                zooms: [3, 20],
+                zIndex: 1000
+            });
+            map.add(labelsLayer);
+            
+            geocoder = new AMap.Geocoder({
+                city: '厦门'
+            });
+        }
+
+        fetch('routes_data.json')
+            .then(response => response.json())
+            .then(data => {
+                routesData = data;
+                updateStats();
+                renderRouteList();
+                checkGeocodedStops();
+            })
+            .catch(error => {
+                console.error('Error loading routes:', error);
+                document.getElementById('routeList').innerHTML = `
+                    <div class="empty-state">
+                        <p>加载数据失败，请刷新页面重试</p>
+                    </div>
+                `;
+            });
+
+        function checkGeocodedStops() {
+            let count = 0;
+            routesData.forEach(route => {
+                route.stops.forEach(stop => {
+                    if (stop.lat && stop.lng) {
+                        count++;
+                        stopCoordinates[stop.name] = [stop.lng, stop.lat];
+                    }
+                });
+            });
+            document.getElementById('geoCoded').textContent = count;
+            if (count > 0) {
+                document.getElementById('geocodeBtn').textContent = '已获取 ' + count + ' 个坐标';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalRoutes').textContent = routesData.length;
+            const totalStops = routesData.reduce((sum, route) => sum + route.stops.length, 0);
+            document.getElementById('totalStops').textContent = totalStops;
+        }
+
+        function getRouteType(routeName) {
+            if (routeName.includes('A')) return 'A';
+            if (routeName.includes('B')) return 'B';
+            return 'other';
+        }
+
+        function getRouteColor(routeType) {
+            if (routeType === 'A') return '#FF5722';
+            if (routeType === 'B') return '#2196F3';
+            return '#4CAF50';
+        }
+
+        function renderRouteList() {
+            const list = document.getElementById('routeList');
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            let filteredRoutes = routesData;
+            
+            if (currentFilter !== 'all') {
+                filteredRoutes = filteredRoutes.filter(r => getRouteType(r.name) === currentFilter);
+            }
+            
+            if (searchTerm) {
+                filteredRoutes = filteredRoutes.filter(r => 
+                    r.name.toLowerCase().includes(searchTerm) ||
+                    r.stops.some(s => s.name.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            if (filteredRoutes.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <p>没有找到匹配的线路</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = filteredRoutes.map((route) => {
+                const type = getRouteType(route.name);
+                const typeClass = type === 'A' ? 'type-a' : type === 'B' ? 'type-b' : 'type-other';
+                const typeLabel = type === 'A' ? 'A线' : type === 'B' ? 'B线' : '其他';
+                const firstStop = route.stops[0];
+                const lastStop = route.stops[route.stops.length - 1];
+                const routeIndex = routesData.indexOf(route);
+                
+                return `
+                    <div class="route-card" data-index="${routeIndex}" onclick="showRouteDetail(${routeIndex})">
+                        <div class="route-name">
+                            <span class="route-type ${typeClass}">${typeLabel}</span>
+                            ${route.name}
+                        </div>
+                        <div class="route-info">
+                            ${route.stops.length}个站点 · 
+                            ${firstStop ? firstStop.time : ''} 发车 · 
+                            终点: ${lastStop ? lastStop.name : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showRouteDetail(index) {
+            const route = routesData[index];
+            const type = getRouteType(route.name);
+            const color = getRouteColor(type);
+            
+            document.querySelectorAll('.route-card').forEach(card => card.classList.remove('active'));
+            document.querySelector(`.route-card[data-index="${index}"]`)?.classList.add('active');
+            
+            document.getElementById('detailTitle').textContent = route.name;
+            document.getElementById('detailSubtitle').textContent = `${route.stops.length}个站点 · 点击站点在地图上定位`;
+            
+            const content = document.getElementById('detailContent');
+            content.innerHTML = route.stops.map((stop, i) => {
+                const hasCoord = stopCoordinates[stop.name] || (stop.lat && stop.lng);
+                return `
+                    <div class="stop-item" onclick="locateStop('${stop.name}', ${index}, ${i})">
+                        <div class="stop-number">${i + 1}</div>
+                        <div class="stop-info">
+                            <div class="stop-name">${stop.name} ${hasCoord ? '📍' : ''}</div>
+                            <div class="stop-time">${stop.time || '--:--'}</div>
+                            <div class="stop-location">${stop.location}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('detailPanel').classList.add('show');
+            
+            clearMap();
+            
+            const path = [];
+            
+            route.stops.forEach((stop, i) => {
+                const coord = stopCoordinates[stop.name] || (stop.lng && stop.lat ? [stop.lng, stop.lat] : null);
+                if (coord) {
+                    path.push(coord);
+                    
+                    // 外发光圆环
+                    const glowCircle = new AMap.CircleMarker({
+                        center: coord,
+                        radius: 18,
+                        fillColor: color,
+                        strokeColor: color,
+                        strokeWeight: 0,
+                        fillOpacity: 0.3,
+                        extData: { stop: stop, index: i }
+                    });
+                    glowCircle.setMap(map);
+                    
+                    // 中间圆环
+                    const midCircle = new AMap.CircleMarker({
+                        center: coord,
+                        radius: 14,
+                        fillColor: color,
+                        strokeColor: '#fff',
+                        strokeWeight: 2,
+                        fillOpacity: 0.6,
+                        extData: { stop: stop, index: i }
+                    });
+                    midCircle.setMap(map);
+                    
+                    // 主标记点
+                    const marker = new AMap.CircleMarker({
+                        center: coord,
+                        radius: 10,
+                        fillColor: color,
+                        strokeColor: '#fff',
+                        strokeWeight: 3,
+                        fillOpacity: 1,
+                        extData: { stop: stop, index: i }
+                    });
+                    marker.setMap(map);
+                    
+                    // 中心白点
+                    const centerDot = new AMap.CircleMarker({
+                        center: coord,
+                        radius: 4,
+                        fillColor: '#fff',
+                        strokeColor: '#fff',
+                        strokeWeight: 0,
+                        fillOpacity: 1
+                    });
+                    centerDot.setMap(map);
+                    
+                    // 序号标签
+                    const label = new AMap.Text({
+                        text: `${i + 1}`,
+                        position: coord,
+                        offset: new AMap.Pixel(-10, -32),
+                        style: {
+                            'background-color': color,
+                            'color': '#fff',
+                            'font-size': '11px',
+                            'font-weight': 'bold',
+                            'width': '20px',
+                            'height': '20px',
+                            'line-height': '20px',
+                            'text-align': 'center',
+                            'border-radius': '50%',
+                            'border': '2px solid #fff',
+                            'box-shadow': '0 2px 6px rgba(0,0,0,0.4)'
+                        }
+                    });
+                    label.setMap(map);
+                    
+                    // 站点名称标签
+                    const nameLabel = new AMap.Text({
+                        text: stop.name,
+                        position: coord,
+                        offset: new AMap.Pixel(0, -55),
+                        style: {
+                            'background-color': 'rgba(255,255,255,0.98)',
+                            'color': '#333',
+                            'font-size': '13px',
+                            'font-weight': 'bold',
+                            'padding': '6px 12px',
+                            'border-radius': '6px',
+                            'border': `3px solid ${color}`,
+                            'box-shadow': '0 3px 8px rgba(0,0,0,0.25)',
+                            'white-space': 'nowrap'
+                        }
+                    });
+                    nameLabel.setMap(map);
+                    
+                    marker.on('click', function() {
+                        const info = this.getExtData();
+                        showStopInfo(info.stop, info.index, color);
+                    });
+                    
+                    currentLayers.push(glowCircle, midCircle, marker, centerDot, label, nameLabel);
+                }
+            });
+            
+            if (path.length > 1) {
+                // 最外层发光效果
+                const glowLine = new AMap.Polyline({
+                    path: path,
+                    strokeColor: color,
+                    strokeWeight: 20,
+                    strokeOpacity: 0.15,
+                    lineJoin: 'round',
+                    lineCap: 'round'
+                });
+                glowLine.setMap(map);
+                currentLayers.push(glowLine);
+                
+                // 外层阴影
+                const outerShadow = new AMap.Polyline({
+                    path: path,
+                    strokeColor: color,
+                    strokeWeight: 14,
+                    strokeOpacity: 0.3,
+                    lineJoin: 'round',
+                    lineCap: 'round'
+                });
+                outerShadow.setMap(map);
+                currentLayers.push(outerShadow);
+                
+                // 内层阴影
+                const innerShadow = new AMap.Polyline({
+                    path: path,
+                    strokeColor: color,
+                    strokeWeight: 10,
+                    strokeOpacity: 0.5,
+                    lineJoin: 'round',
+                    lineCap: 'round'
+                });
+                innerShadow.setMap(map);
+                currentLayers.push(innerShadow);
+                
+                // 主线路
+                const polyline = new AMap.Polyline({
+                    path: path,
+                    strokeColor: color,
+                    strokeWeight: 6,
+                    strokeOpacity: 1,
+                    showDir: true,
+                    dirColor: '#fff',
+                    lineJoin: 'round',
+                    lineCap: 'round'
+                });
+                polyline.setMap(map);
+                currentLayers.push(polyline);
+                
+                // 中心高亮线
+                const highlightLine = new AMap.Polyline({
+                    path: path,
+                    strokeColor: '#fff',
+                    strokeWeight: 2,
+                    strokeOpacity: 0.6,
+                    lineJoin: 'round',
+                    lineCap: 'round'
+                });
+                highlightLine.setMap(map);
+                currentLayers.push(highlightLine);
+                
+                map.setFitView(currentLayers, true, [80, 80, 80, 80]);
+                
+                updatePathInfo(route, color);
+            } else if (path.length === 1) {
+                map.setCenter(path[0]);
+                map.setZoom(16);
+            }
+        }
+
+        function updatePathInfo(route, color) {
+            const pathInfo = document.getElementById('routePathInfo');
+            const pathTitle = document.getElementById('pathTitle');
+            const pathStopList = document.getElementById('pathStopList');
+            
+            pathTitle.textContent = route.name;
+            pathTitle.style.color = color;
+            
+            pathStopList.innerHTML = route.stops.map((stop, i) => {
+                const hasCoord = stopCoordinates[stop.name] || (stop.lat && stop.lng);
+                return `
+                    <div class="path-stop-item">
+                        <div class="path-stop-dot" style="background: ${hasCoord ? color : '#ccc'}"></div>
+                        <span>${i + 1}. ${stop.name} ${stop.time || ''}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            pathInfo.classList.add('show');
+        }
+
+        function showStopInfo(stop, index, color) {
+            const infoWindow = new AMap.InfoWindow({
+                content: `
+                    <div style="padding: 15px; min-width: 200px;">
+                        <div style="font-size: 16px; font-weight: bold; color: ${color}; margin-bottom: 8px;">
+                            ${index + 1}. ${stop.name}
+                        </div>
+                        <div style="font-size: 14px; color: #333; margin-bottom: 5px;">
+                            <strong>时间:</strong> ${stop.time || 'N/A'}
+                        </div>
+                        <div style="font-size: 12px; color: #666;">
+                            <strong>位置:</strong> ${stop.location}
+                        </div>
+                    </div>
+                `,
+                offset: new AMap.Pixel(0, -15)
+            });
+            
+            const coord = stopCoordinates[stop.name] || [stop.lng, stop.lat];
+            if (coord) {
+                infoWindow.open(map, coord);
+            }
+        }
+
+        function locateStop(stopName, routeIndex, stopIndex) {
+            const coord = stopCoordinates[stopName];
+            if (coord) {
+                map.setCenter(coord);
+                map.setZoom(17);
+                
+                const route = routesData[routeIndex];
+                const type = getRouteType(route.name);
+                const color = getRouteColor(type);
+                const stop = route.stops[stopIndex];
+                
+                showStopInfo(stop, stopIndex, color);
+                
+                const stopItems = document.querySelectorAll('.stop-item');
+                stopItems.forEach((item, i) => {
+                    if (i === stopIndex) {
+                        item.style.background = '#e8eaff';
+                        item.style.borderLeftColor = color;
+                    } else {
+                        item.style.background = '#f8f9ff';
+                        item.style.borderLeftColor = '#667eea';
+                    }
+                });
+            } else {
+                alert('该站点暂无坐标信息，请先点击"获取站点坐标"按钮');
+            }
+        }
+
+        function closeDetail() {
+            document.getElementById('detailPanel').classList.remove('show');
+            document.getElementById('routePathInfo').classList.remove('show');
+            document.querySelectorAll('.route-card').forEach(card => card.classList.remove('active'));
+        }
+
+        function clearMap() {
+            currentLayers.forEach(layer => layer.setMap(null));
+            currentLayers = [];
+            labelsLayer.clear();
+        }
+
+        async function startGeocoding() {
+            const btn = document.getElementById('geocodeBtn');
+            const progressBar = document.getElementById('progressBar');
+            
+            btn.disabled = true;
+            btn.textContent = '正在获取坐标...';
+            progressBar.style.display = 'block';
+            
+            const uniqueStops = new Set();
+            routesData.forEach(route => {
+                route.stops.forEach(stop => {
+                    if (!stopCoordinates[stop.name]) {
+                        uniqueStops.add(stop.name);
+                    }
+                });
+            });
+            
+            const stopsArray = Array.from(uniqueStops);
+            let completed = 0;
+            let success = 0;
+            
+            for (let i = 0; i < stopsArray.length; i++) {
+                const stopName = stopsArray[i];
+                const address = '厦门市' + stopName;
+                
+                try {
+                    await new Promise((resolve) => {
+                        geocoder.getLocation(address, function(status, result) {
+                            if (status === 'complete' && result.geocodes.length > 0) {
+                                const loc = result.geocodes[0].location;
+                                stopCoordinates[stopName] = [loc.lng, loc.lat];
+                                
+                                routesData.forEach(route => {
+                                    route.stops.forEach(stop => {
+                                        if (stop.name === stopName) {
+                                            stop.lng = loc.lng;
+                                            stop.lat = loc.lat;
+                                        }
+                                    });
+                                });
+                                success++;
+                            }
+                            completed++;
+                            progressBar.style.width = (completed / stopsArray.length * 100) + '%';
+                            resolve();
+                        });
+                    });
+                    
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                } catch (e) {
+                    console.error('Geocoding error:', e);
+                }
+            }
+            
+            progressBar.style.display = 'none';
+            btn.disabled = false;
+            btn.textContent = `已获取 ${success} 个坐标`;
+            document.getElementById('geoCoded').textContent = Object.keys(stopCoordinates).length;
+            
+            if (success > 0) {
+                saveCoordinates();
+            }
+        }
+
+        function saveCoordinates() {
+            const dataStr = JSON.stringify(routesData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'routes_data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('坐标已获取并保存！请刷新页面查看地图效果。');
+        }
+
+        document.getElementById('searchBox').addEventListener('input', renderRouteList);
+        
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderRouteList();
+            });
+        });
+
+        initMap();
+    </script>
+</body>
+</html>

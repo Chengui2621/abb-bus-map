@@ -1,0 +1,2492 @@
+[
+  {
+    "name": "No.01东渡线",
+    "stops": [
+      {
+        "name": "山水芳邻",
+        "time": "07:05",
+        "location": "厦门茶叶厂对面天桥下"
+      },
+      {
+        "name": "振业大厦",
+        "time": "07:07",
+        "location": "滨北路快到石亭路口"
+      },
+      {
+        "name": "滨北中国银行",
+        "time": "07:10",
+        "location": "滨北中行对面"
+      },
+      {
+        "name": "国际邮轮",
+        "time": "07:12",
+        "location": "海天宾馆门口"
+      },
+      {
+        "name": "东渡路双狮南路",
+        "time": "07:13",
+        "location": "新华都购物广场门口"
+      },
+      {
+        "name": "金龙大厦",
+        "time": "07:15",
+        "location": "东渡路五矿大厦边"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.02滨南线",
+    "stops": [
+      {
+        "name": "闽南大厦站",
+        "time": "07:03",
+        "location": "闽南大厦天桥站"
+      },
+      {
+        "name": "湖滨中学天桥站",
+        "time": "07:04",
+        "location": "湖滨中学天桥站"
+      },
+      {
+        "name": "四里（裕盛园）",
+        "time": "07:05",
+        "location": "四里（裕盛园）喜德盛电动车"
+      },
+      {
+        "name": "厦禾路双涵路口",
+        "time": "07:10",
+        "location": "双涵路口公厕边"
+      },
+      {
+        "name": "明发商业广场",
+        "time": "07:12",
+        "location": "交警支队人行天桥下"
+      },
+      {
+        "name": "阳光百合",
+        "time": "07:13",
+        "location": "莲前西路阳光百合"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.03海洋三所线",
+    "stops": [
+      {
+        "name": "厦大海洋三所",
+        "time": "06:55",
+        "location": "厦大海洋三所门口"
+      },
+      {
+        "name": "厦门名仕",
+        "time": "06:57",
+        "location": "珍珠湾花园门口"
+      },
+      {
+        "name": "小白鹭艺术中心",
+        "time": "07:00",
+        "location": "小白鹭艺术中心门口"
+      },
+      {
+        "name": "上李公交站",
+        "time": "07:03",
+        "location": "岷夏国际学校斑马线前"
+      },
+      {
+        "name": "人力资源大厦",
+        "time": "07:33",
+        "location": "翔安大道人力资源大厦"
+      },
+      {
+        "name": "湖头公交站",
+        "time": "07:34",
+        "location": "翔安大道湖头公交站"
+      },
+      {
+        "name": "翔安人民体育场",
+        "time": "07:35",
+        "location": "翔安大道体育场"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.04国贸线",
+    "stops": [
+      {
+        "name": "厦门国贸海景（新海关门口）",
+        "time": "06:58",
+        "location": "新海关门口"
+      },
+      {
+        "name": "和平码头",
+        "time": "07:03",
+        "location": "和平码头停车点"
+      },
+      {
+        "name": "大生里",
+        "time": "07:05",
+        "location": "大生里铁路前30米"
+      },
+      {
+        "name": "华侨博物馆（碧山林海对面）",
+        "time": "07:07",
+        "location": "碧山临海对面"
+      },
+      {
+        "name": "厦门理工学院思明校区站（只有上班接）",
+        "time": "07:10",
+        "location": "厦门理工学院思明校区站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.05厦禾线",
+    "stops": [
+      {
+        "name": "厦禾路开禾路口",
+        "time": "06:58",
+        "location": "厦禾路开禾路口"
+      },
+      {
+        "name": "眼科中心",
+        "time": "07:00",
+        "location": "眼科中心往前30米"
+      },
+      {
+        "name": "厦禾路斗西路",
+        "time": "07:02",
+        "location": "斗西路口BRT天桥下"
+      },
+      {
+        "name": "厦门二市",
+        "time": "07:03",
+        "location": "二市BRT天桥下"
+      },
+      {
+        "name": "后滨路口",
+        "time": "07:05",
+        "location": "后滨路口公厕边"
+      },
+      {
+        "name": "金榜公园",
+        "time": "07:09",
+        "location": "金榜公园往前50米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.06千禧线",
+    "stops": [
+      {
+        "name": "厦门一中初中部",
+        "time": "07:03",
+        "location": "174门诊对面"
+      },
+      {
+        "name": "将军祠（阳鸿新城）",
+        "time": "07:07",
+        "location": "阳鸿新城"
+      },
+      {
+        "name": "厦门文灶-1",
+        "time": "07:09",
+        "location": "文灶加油站入口"
+      },
+      {
+        "name": "思明图书馆",
+        "time": "07:11",
+        "location": "文曾路思明图书馆对面"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.07禾祥西线",
+    "stops": [
+      {
+        "name": "嘉美花园站",
+        "time": "07:00",
+        "location": "禾祥西路联帮广场"
+      },
+      {
+        "name": "禾祥西故宫路口",
+        "time": "07:01",
+        "location": "禾祥西新家园"
+      },
+      {
+        "name": "禾祥西美仑皓晖酒店站",
+        "time": "07:05",
+        "location": "美仑皓晖酒店站"
+      },
+      {
+        "name": "开元街道站",
+        "time": "07:07",
+        "location": "禾祥西万禾花园"
+      },
+      {
+        "name": "禾祥西麦当劳",
+        "time": "07:08",
+        "location": "禾祥西麦当劳斜对面"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.09和通线",
+    "stops": [
+      {
+        "name": "和通里",
+        "time": "07:00",
+        "location": "和盛里公交站往前20米"
+      },
+      {
+        "name": "厦门七星大厦",
+        "time": "07:04",
+        "location": "岳阳人行地下通道口"
+      },
+      {
+        "name": "厦门人才中心",
+        "time": "07:06",
+        "location": "仙岳路和金桥路口往前30米"
+      },
+      {
+        "name": "文化宫（仙岳路特运松柏小区）",
+        "time": "07:09",
+        "location": "仙岳路文化宫天桥下"
+      },
+      {
+        "name": "侨建花园",
+        "time": "07:11",
+        "location": "仙岳路松柏湖小区前"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.10岭兜线",
+    "stops": [
+      {
+        "name": "新景花园",
+        "time": "07:10",
+        "location": "香山海景苑东门口"
+      },
+      {
+        "name": "大唐中心",
+        "time": "07:12",
+        "location": "大唐中心公交站"
+      },
+      {
+        "name": "台南路口公交站",
+        "time": "07:14",
+        "location": "下何公交车站往前50米"
+      },
+      {
+        "name": "金钟路圆二路",
+        "time": "07:16",
+        "location": "金钟路公交站"
+      },
+      {
+        "name": "环岛干道高林公园",
+        "time": "07:18",
+        "location": "金钟路高林天桥下"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.11槟榔线",
+    "stops": [
+      {
+        "name": "槟榔路南湖花园",
+        "time": "07:04",
+        "location": "槟榔路南湖花园门口"
+      },
+      {
+        "name": "槟榔餐厅",
+        "time": "07:05",
+        "location": "槟榔餐厅对面"
+      },
+      {
+        "name": "槟榔西里",
+        "time": "07:07",
+        "location": "湖光社区居委会对面"
+      },
+      {
+        "name": "湖明丽景站",
+        "time": "07:09",
+        "location": "湖明路厦门银行（莲坂支行）对面"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.12莲花线",
+    "stops": [
+      {
+        "name": "莲花路口（下班在23号线）",
+        "time": "07:07",
+        "location": "登特口腔门口"
+      },
+      {
+        "name": "厦门第二实验小学（下班在23号线）",
+        "time": "07:08",
+        "location": "实验小学斑马线"
+      },
+      {
+        "name": "莲花二村",
+        "time": "07:10",
+        "location": "莲花麦当劳对面"
+      },
+      {
+        "name": "莲花小学",
+        "time": "07:12",
+        "location": "莲花三村小学公交站"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.13卧龙晓城线",
+    "stops": [
+      {
+        "name": "莲前移动",
+        "time": "07:10",
+        "location": "莲前移动人行天桥下"
+      },
+      {
+        "name": "卧龙晓城",
+        "time": "07:12",
+        "location": "卧龙晓城往前30米"
+      },
+      {
+        "name": "禹州花园天桥下",
+        "time": "07:15",
+        "location": "金尚路禹州花园天桥下"
+      },
+      {
+        "name": "太薇花园",
+        "time": "07:20",
+        "location": "金尚路过金昌路后50米"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.14松柏线",
+    "stops": [
+      {
+        "name": "江头西路吕厝东站（只有上班接）",
+        "time": "07:05",
+        "location": "吕岭路江头西路天桥下"
+      },
+      {
+        "name": "滨北吕厝西站（只有上班接）",
+        "time": "07:07",
+        "location": "宏业大夏滨北路口"
+      },
+      {
+        "name": "牡丹大酒楼",
+        "time": "07:08",
+        "location": "牡丹大酒楼对面"
+      },
+      {
+        "name": "松柏公园",
+        "time": "07:10",
+        "location": "松柏公园对面"
+      },
+      {
+        "name": "莲岳路莲岳里",
+        "time": "07:14",
+        "location": "莲岳里小区门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.15东浦线",
+    "stops": [
+      {
+        "name": "文屏站（下班在6号线））",
+        "time": "06:55",
+        "location": "上班增加（文屏加油站对面）,下班在6号线领秀城门口下"
+      },
+      {
+        "name": "金枫园",
+        "time": "07:02",
+        "location": "金枫园往前30米"
+      },
+      {
+        "name": "东浦一里公交站",
+        "time": "07:04",
+        "location": "东浦一里公交站往前30米"
+      },
+      {
+        "name": "海湾学院",
+        "time": "07:05",
+        "location": "东浦幼儿园往后50米"
+      },
+      {
+        "name": "莲前五中天桥下",
+        "time": "07:08",
+        "location": "莲前五中天桥下"
+      },
+      {
+        "name": "中孚花园-1",
+        "time": "07:13",
+        "location": "金尚小区人行天桥下"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.16瑞景线",
+    "stops": [
+      {
+        "name": "西林云顶站",
+        "time": "07:05",
+        "location": "云顶西路福乐家园路口"
+      },
+      {
+        "name": "外国语学校瑞景分校",
+        "time": "07:08",
+        "location": "瑞景新村公交站往前50米"
+      },
+      {
+        "name": "潘宅",
+        "time": "07:10",
+        "location": "莲前东路潘宅"
+      },
+      {
+        "name": "华林",
+        "time": "07:12",
+        "location": "华林公交站往后30米"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.18蓝湾国际线",
+    "stops": [
+      {
+        "name": "蓝湾国际",
+        "time": "07:11",
+        "location": "文化艺术中心南门对面"
+      },
+      {
+        "name": "松柏邮政大楼",
+        "time": "07:16",
+        "location": "松柏邮政大楼路边"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.19前埔线",
+    "stops": [
+      {
+        "name": "大同中学",
+        "time": "07:07",
+        "location": "城市职业大学公交站往前50米"
+      },
+      {
+        "name": "前埔南区小学",
+        "time": "07:11",
+        "location": "前埔南区小学路人行天桥下"
+      },
+      {
+        "name": "文兴东三里",
+        "time": "07:13",
+        "location": "前埔医院路口往前20米"
+      },
+      {
+        "name": "文兴东污水处理厂(爱琴海在此站上车）",
+        "time": "07:15",
+        "location": "文兴东路过污水处理厂门口"
+      },
+      {
+        "name": "塔埔社区西区",
+        "time": "07:17",
+        "location": "环岛干道塔埔社区西区北门"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.20泰和线",
+    "stops": [
+      {
+        "name": "龙盛里",
+        "time": "07:08",
+        "location": "林德叉车西门"
+      },
+      {
+        "name": "龙昌里",
+        "time": "07:09",
+        "location": "龙昌里公交站"
+      },
+      {
+        "name": "泰和花园",
+        "time": "07:10",
+        "location": "泰和花园人行天桥下"
+      },
+      {
+        "name": "江头菜市场（下班在23号线）",
+        "time": "07:12",
+        "location": "台湾街华永天地入口前"
+      },
+      {
+        "name": "桃源大厦（下班在23号线）",
+        "time": "07:14",
+        "location": "桃源大厦入口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.21蔡塘线",
+    "stops": [
+      {
+        "name": "蔡塘广场",
+        "time": "07:05",
+        "location": "蔡塘广场人行天桥下"
+      },
+      {
+        "name": "古地石地铁站",
+        "time": "07:08",
+        "location": "古地石公交站往前50米"
+      },
+      {
+        "name": "软件园二期西门",
+        "time": "07:13",
+        "location": "金山路佰翔酒店门口公交站往前30米"
+      },
+      {
+        "name": "湖里万达",
+        "time": "07:17",
+        "location": "万达西停车场入口"
+      },
+      {
+        "name": "国贸金融中心",
+        "time": "07:18",
+        "location": "国贸金融中心公交站往前30米"
+      },
+      {
+        "name": "莲花尚城（下班在洪前线-返）",
+        "time": "07:35",
+        "location": "莲花尚城前路口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.23德馨线",
+    "stops": [
+      {
+        "name": "劳动力大厦",
+        "time": "07:10",
+        "location": "如彬快捷酒店门口"
+      },
+      {
+        "name": "德馨大厦（下班在14号线）",
+        "time": "07:11",
+        "location": "仙岳路SM二期对面地铁1号口"
+      },
+      {
+        "name": "中医院肛肠医院",
+        "time": "07:15",
+        "location": "中医院肛肠医院门口"
+      },
+      {
+        "name": "禾山中学",
+        "time": "07:20",
+        "location": "仙岳路中医院对面聚蓉酒楼边"
+      },
+      {
+        "name": "后坑前社（下班在20号线）",
+        "time": "07:22",
+        "location": "前坑人行地下通道口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.24乌石线",
+    "stops": [
+      {
+        "name": "乌石浦油画村",
+        "time": "07:12",
+        "location": "嘉景花园北一门边"
+      },
+      {
+        "name": "后埔坐标文创园",
+        "time": "07:15",
+        "location": "后埔坐标文创园门口"
+      },
+      {
+        "name": "金湖路东晖广场北门",
+        "time": "07:17",
+        "location": "金湖路东晖广场北门口"
+      },
+      {
+        "name": "金湖路吉家家",
+        "time": "07:19",
+        "location": "金湖路吉家家出口"
+      },
+      {
+        "name": "西延路跨线桥公交站（洪前站） （下班乘坐洪前-返线）",
+        "time": "07:36",
+        "location": "西延路跨线桥公交站天桥下"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.25殿前地铁线",
+    "stops": [
+      {
+        "name": "仙洞山庄人行天桥下",
+        "time": "07:05",
+        "location": "仙洞山庄人行天桥下"
+      },
+      {
+        "name": "殿前地铁站",
+        "time": "07:12",
+        "location": "嘉禾路殿前加油站出口"
+      },
+      {
+        "name": "中埔综合楼",
+        "time": "07:15",
+        "location": "1号线高崎站出口旁右转30米处"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB HUB"
+      }
+    ]
+  },
+  {
+    "name": "No.26太古线",
+    "stops": [
+      {
+        "name": "太古宿舍",
+        "time": "07:20",
+        "location": "太古宿舍门口"
+      },
+      {
+        "name": "围里",
+        "time": "07:23",
+        "location": "围里逮辽水库东门红路灯路口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.27林后线",
+    "stops": [
+      {
+        "name": "坂上",
+        "time": "07:13",
+        "location": "金尚路坂上公交站"
+      },
+      {
+        "name": "林后",
+        "time": "07:15",
+        "location": "林后天桥下靠戴尔"
+      },
+      {
+        "name": "五通服务中心",
+        "time": "07:22",
+        "location": "运动管前面300米红绿灯上车"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.29红楼线",
+    "stops": [
+      {
+        "name": "万景花园",
+        "time": "07:14",
+        "location": "宜宾路万景花园站"
+      },
+      {
+        "name": "博士山庄",
+        "time": "07:17",
+        "location": "博士山庄门口"
+      },
+      {
+        "name": "厦门红楼",
+        "time": "07:21",
+        "location": "红楼门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.30殿前线",
+    "stops": [
+      {
+        "name": "悦华公寓",
+        "time": "07:08",
+        "location": "华荣路悦华路口公交站往前30米"
+      },
+      {
+        "name": "殿前村口",
+        "time": "07:15",
+        "location": "殿前村口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.31枋湖线",
+    "stops": [
+      {
+        "name": "金枋世家站点",
+        "time": "07:08",
+        "location": "枋湖西路朱元酒店往前50米"
+      },
+      {
+        "name": "禾盛社区",
+        "time": "07:10",
+        "location": "宏伟大夏门口"
+      },
+      {
+        "name": "双十中学",
+        "time": "07:11",
+        "location": "枋湖车管所公交站往后50米"
+      },
+      {
+        "name": "穆厝大榕树",
+        "time": "07:13",
+        "location": "金湖路穆厝公交站往后50米"
+      },
+      {
+        "name": "枋湖发展中心",
+        "time": "07:15",
+        "location": "金湖路乐都会对面"
+      },
+      {
+        "name": "复旦中山厦门医院",
+        "time": "07:17",
+        "location": "复旦中山厦门医院门口往前30米"
+      },
+      {
+        "name": "五缘湾道金山路",
+        "time": "07:20",
+        "location": "钟宅西三里公交站往前50米"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.34马垅线",
+    "stops": [
+      {
+        "name": "大唐世家一期",
+        "time": "07:15",
+        "location": "火炬学校路口对面"
+      },
+      {
+        "name": "加州花园",
+        "time": "07:16",
+        "location": "新丰路建行ATM前面"
+      },
+      {
+        "name": "古塘垅新村",
+        "time": "07:18",
+        "location": "古塘垅新村小区门口"
+      },
+      {
+        "name": "马垅",
+        "time": "07:21",
+        "location": "马垅公交站前"
+      },
+      {
+        "name": "马垅长途客运站",
+        "time": "07:23",
+        "location": "马垅长途客运站"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.36寨上线",
+    "stops": [
+      {
+        "name": "寨上",
+        "time": "07:13",
+        "location": "长乐路建发物流北门门口边"
+      },
+      {
+        "name": "翔鹭花城",
+        "time": "07:15",
+        "location": "台贸中心站"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.38小东山线",
+    "stops": [
+      {
+        "name": "小东山天桥",
+        "time": "07:15",
+        "location": "小东山天桥下"
+      },
+      {
+        "name": "县后ABB",
+        "time": "07:19",
+        "location": "县后BRT天桥下路口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.39尚忠线",
+    "stops": [
+      {
+        "name": "安兜地铁站-1",
+        "time": "07:12",
+        "location": "福建三建门口对面天桥下，更新后在原候车站点对面"
+      },
+      {
+        "name": "尚忠社",
+        "time": "07:16",
+        "location": "尚忠社人行地下道口"
+      },
+      {
+        "name": "枋湖北二路",
+        "time": "07:18",
+        "location": "湖里高新区西一门对面"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.40康乐线",
+    "stops": [
+      {
+        "name": "厦门光亮骨科医院",
+        "time": "07:12",
+        "location": "塘边康乐二小大门口"
+      },
+      {
+        "name": "华东花园",
+        "time": "07:15",
+        "location": "台北新村靠近源冒豪庭门口"
+      },
+      {
+        "name": "禹州新村站",
+        "time": "07:16",
+        "location": "禹州新村农行口"
+      },
+      {
+        "name": "台北新村",
+        "time": "07:17",
+        "location": "台北新村对面源昌豪庭门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.41金山小区线",
+    "stops": [
+      {
+        "name": "祥店",
+        "time": "07:10",
+        "location": "祥店中石化加油站入口"
+      },
+      {
+        "name": "祥岭站",
+        "time": "07:15",
+        "location": "祥岭路湖里交警大队围墙边"
+      },
+      {
+        "name": "宏山新村站",
+        "time": "07:19",
+        "location": "宏山新村门口"
+      },
+      {
+        "name": "金山小区公交车站",
+        "time": "07:23",
+        "location": "金山小区门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.42湖里线",
+    "stops": [
+      {
+        "name": "德辉花园（上班）",
+        "time": "07:07",
+        "location": "海天路海天小区路口"
+      },
+      {
+        "name": "湖里公园（鹭辉大厦）",
+        "time": "07:09",
+        "location": "鹭辉大厦边"
+      },
+      {
+        "name": "湖里建行",
+        "time": "07:11",
+        "location": "湖里建行门口"
+      },
+      {
+        "name": "湖里加油站",
+        "time": "07:13",
+        "location": "湖里加油站出口"
+      },
+      {
+        "name": "三航大厦",
+        "time": "07:18",
+        "location": "三航大厦门口对面"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.43万科线",
+    "stops": [
+      {
+        "name": "马巷公交站",
+        "time": "07:20",
+        "location": "农行门口公交站"
+      },
+      {
+        "name": "万科金色悦城",
+        "time": "07:22",
+        "location": "五权路2588号 武夷天地和南49米"
+      },
+      {
+        "name": "西亭公交站",
+        "time": "07:30",
+        "location": "公交站前"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.44汇景线",
+    "stops": [
+      {
+        "name": "国贸天成站",
+        "time": "07:19",
+        "location": "国贸远洋天和"
+      },
+      {
+        "name": "海洋学院站",
+        "time": "07:21",
+        "location": "海洋学院翔安校区公交站"
+      },
+      {
+        "name": "厦门新店中学",
+        "time": "07:28",
+        "location": "国大药房"
+      },
+      {
+        "name": "宋坂路口公交站",
+        "time": "07:29",
+        "location": "招商雍华府东120米"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.45中骏线",
+    "stops": [
+      {
+        "name": "祥吴公交站",
+        "time": "07:37",
+        "location": "祥吴半坡潮汕牛肉火锅门口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.46黎安线",
+    "stops": [
+      {
+        "name": "中骏蓝湾尚都",
+        "time": "07:28",
+        "location": "中骏东门"
+      },
+      {
+        "name": "翔安火炬高新区",
+        "time": "07:33",
+        "location": "红绿灯前6号楼处"
+      },
+      {
+        "name": "郑坂站--宝钢门口",
+        "time": "07:35",
+        "location": "宝钢门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.47嘉庚线",
+    "stops": [
+      {
+        "name": "集美法院",
+        "time": "07:20",
+        "location": "集美法院墙角"
+      },
+      {
+        "name": "霞梧路口",
+        "time": "07:21",
+        "location": "霞梧路口"
+      },
+      {
+        "name": "喜盈门建材市场",
+        "time": "07:22",
+        "location": "同集南路大门口"
+      },
+      {
+        "name": "潘涂公交站（保利叁仟栋）",
+        "time": "07:36",
+        "location": "公交站前立交桥下面"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.48海峡线",
+    "stops": [
+      {
+        "name": "国贸学原",
+        "time": "07:20",
+        "location": "国贸学原三期"
+      },
+      {
+        "name": "融创东南府",
+        "time": "07:22",
+        "location": "东南府路口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.49乐海线",
+    "stops": [
+      {
+        "name": "同安乐海",
+        "time": "07:11",
+        "location": "厦航高郡"
+      },
+      {
+        "name": "同安安溪路地铁站",
+        "time": "07:13",
+        "location": "安溪路口公交站后"
+      },
+      {
+        "name": "同安车站",
+        "time": "07:14",
+        "location": "公交站前"
+      },
+      {
+        "name": "保利阅云台",
+        "time": "07:28",
+        "location": "保利阅云台公交站"
+      },
+      {
+        "name": "文澜春晓（特房樾鸣湾）（临时站点）",
+        "time": "07:31",
+        "location": "试运行站点"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.50集源线",
+    "stops": [
+      {
+        "name": "嘉庚体育馆-1",
+        "time": "07:20",
+        "location": "新华都超市门口（红树康桥站对面）"
+      },
+      {
+        "name": "泉水湾二期西门",
+        "time": "07:21",
+        "location": "泉水湾二期西门入口"
+      },
+      {
+        "name": "古龙御景一期西门",
+        "time": "07:24",
+        "location": "红林路公交站前"
+      },
+      {
+        "name": "海上五月花六期西北门",
+        "time": "07:28",
+        "location": "海上五月花六期外面丹夏房产外面"
+      },
+      {
+        "name": "阳光城翡丽海岸",
+        "time": "07:32",
+        "location": "滨海西大道 东亭公交站前面"
+      },
+      {
+        "name": "海尚国际",
+        "time": "07:35",
+        "location": "海尚国际正大门口路边"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.51荣景线",
+    "stops": [
+      {
+        "name": "荣景花园",
+        "time": "07:15",
+        "location": "嘉庚路和石鼓路交叉路口"
+      },
+      {
+        "name": "财经学院大门",
+        "time": "07:16",
+        "location": "财经学院大门口"
+      },
+      {
+        "name": "石鼓路麦当劳",
+        "time": "07:18",
+        "location": "集源路麦当劳旁"
+      },
+      {
+        "name": "海光花园",
+        "time": "07:20",
+        "location": "集源路建行马路对面"
+      },
+      {
+        "name": "悦海园(仅上班)",
+        "time": "07:21",
+        "location": "浔江路和浔江三路交叉口"
+      },
+      {
+        "name": "红树康桥",
+        "time": "07:22",
+        "location": "印斗路古龙明珠门口"
+      },
+      {
+        "name": "集美中心花园北门",
+        "time": "07:24",
+        "location": "在印斗路口的水产学院公交站旁"
+      },
+      {
+        "name": "集美师范学院站",
+        "time": "07:25",
+        "location": "印斗路音乐学院门口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.52厦大翔安线",
+    "stops": [
+      {
+        "name": "厦大翔安校区",
+        "time": "07:21",
+        "location": "厦大科技园公交站"
+      },
+      {
+        "name": "东园公交站",
+        "time": "07:22",
+        "location": "东园公交站"
+      },
+      {
+        "name": "西林公交站",
+        "time": "07:30",
+        "location": "西林公交站"
+      },
+      {
+        "name": "首开领翔上郡",
+        "time": "07:32",
+        "location": "首开公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.53滨水线",
+    "stops": [
+      {
+        "name": "产业研究院BRT",
+        "time": "07:15",
+        "location": "安居·园博公寓北172米"
+      },
+      {
+        "name": "滨水小区",
+        "time": "07:20",
+        "location": "集美大道滨水小区公交站旁"
+      },
+      {
+        "name": "集美孙厝",
+        "time": "07:24",
+        "location": "天桥前20米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.54浒井线",
+    "stops": [
+      {
+        "name": "兑山公交站",
+        "time": "07:10",
+        "location": "往同集方向10米左右"
+      },
+      {
+        "name": "浒井西里",
+        "time": "07:12",
+        "location": "孙坂南路斑马线附近"
+      },
+      {
+        "name": "TDK二期",
+        "time": "07:22",
+        "location": "集安广场附近"
+      },
+      {
+        "name": "禹州大学城",
+        "time": "07:25",
+        "location": "靠近天桥公交站下"
+      },
+      {
+        "name": "蔡店公交站",
+        "time": "07:27",
+        "location": "海英公交站后面"
+      },
+      {
+        "name": "海英站",
+        "time": "07:30",
+        "location": "靠近天桥公交站下"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.55滨海线",
+    "stops": [
+      {
+        "name": "中央公园城",
+        "time": "07:22",
+        "location": "集美佑康门诊部旁边"
+      },
+      {
+        "name": "海上五月花三期1",
+        "time": "07:23",
+        "location": "招商，海德公园2期北门"
+      },
+      {
+        "name": "厦门实验中学",
+        "time": "07:35",
+        "location": "厦门实验中学公交站前面"
+      },
+      {
+        "name": "金茂悦粼湾（返程乘坐61B）",
+        "time": "07:40",
+        "location": "翔安火炬实验学校（公交站）前"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.56同安线",
+    "stops": [
+      {
+        "name": "寨阳村口站",
+        "time": "06:53",
+        "location": "禹洲世茂·东岸朗廷东南方向250米"
+      },
+      {
+        "name": "东海学院公交站",
+        "time": "06:58",
+        "location": "东海学院门口"
+      },
+      {
+        "name": "同安影视城",
+        "time": "07:00",
+        "location": "农商银行门口"
+      },
+      {
+        "name": "同安小西门",
+        "time": "07:05",
+        "location": "城西方向过红绿灯（人寿保险公司门口）"
+      },
+      {
+        "name": "城西站5",
+        "time": "07:08",
+        "location": "邮储银行门口对面"
+      },
+      {
+        "name": "新西桥公交站",
+        "time": "07:11",
+        "location": "公交站往前"
+      },
+      {
+        "name": "西柯何厝公交站",
+        "time": "07:30",
+        "location": "同安新城(地铁站)往前200米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.57巷北线",
+    "stops": [
+      {
+        "name": "中澳城",
+        "time": "07:08",
+        "location": "纵三路与新浦路交汇路口"
+      },
+      {
+        "name": "巷北工业区",
+        "time": "07:23",
+        "location": "工业区南门"
+      },
+      {
+        "name": "海翼0592",
+        "time": "07:33",
+        "location": "工商银行往前"
+      },
+      {
+        "name": "同美公交站",
+        "time": "07:43",
+        "location": "同美公交站点，可可馨超市附近"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.58中航线",
+    "stops": [
+      {
+        "name": "灵玲马戏",
+        "time": "07:08",
+        "location": "灵玲大酒店外面杏锦路"
+      },
+      {
+        "name": "中航城C区",
+        "time": "07:13",
+        "location": "中航城倍全便利店"
+      },
+      {
+        "name": "集美市民广场公交站 （临时站点）",
+        "time": "07:16",
+        "location": "诚毅中路 西亭村北60米处"
+      },
+      {
+        "name": "IOI",
+        "time": "07:20",
+        "location": "杏林湾路 iOi MALL西北140米"
+      },
+      {
+        "name": "莲花尚院",
+        "time": "07:23",
+        "location": "小金星国际幼儿园"
+      },
+      {
+        "name": "恒大帝景",
+        "time": "07:26",
+        "location": "产业技术研究院(集美大道)东北387米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.59明珠线",
+    "stops": [
+      {
+        "name": "西滨公交场站",
+        "time": "07:00",
+        "location": "西滨城建门口"
+      },
+      {
+        "name": "海湾明珠",
+        "time": "07:05",
+        "location": "杏林喷水池旁"
+      },
+      {
+        "name": "杏滨街道",
+        "time": "07:06",
+        "location": "月美路月美嘉园旁悦美筼筜公交站"
+      },
+      {
+        "name": "白泉菜市场",
+        "time": "07:07",
+        "location": "杏林东路高浦公交站"
+      },
+      {
+        "name": "悦美筼筜",
+        "time": "07:09",
+        "location": "杏林东路文滨花园与中国民生银行路口旁"
+      },
+      {
+        "name": "高浦站",
+        "time": "07:12",
+        "location": "过红绿灯400米"
+      },
+      {
+        "name": "金海湾",
+        "time": "07:13",
+        "location": "公交站后缺口斑马线"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.60灌口线",
+    "stops": [
+      {
+        "name": "乐活小镇",
+        "time": "06:50",
+        "location": "乐活小镇大门口"
+      },
+      {
+        "name": "灌口菜市场",
+        "time": "06:55",
+        "location": "大路墘公交站后面"
+      },
+      {
+        "name": "龙湖嘉屿",
+        "time": "07:00",
+        "location": "龙湖路口"
+      },
+      {
+        "name": "启明学校",
+        "time": "07:05",
+        "location": "孙坂路红绿灯路口"
+      },
+      {
+        "name": "永祥新城",
+        "time": "07:10",
+        "location": "永祥新华城门口"
+      },
+      {
+        "name": "中骏四季阳光",
+        "time": "07:15",
+        "location": "中骏四季阳光公交站"
+      },
+      {
+        "name": "北站万科",
+        "time": "07:25",
+        "location": "万科北门"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.61顶溪线",
+    "stops": [
+      {
+        "name": "同安宝龙北公交站",
+        "time": "07:15",
+        "location": "同安宝龙北公交站"
+      },
+      {
+        "name": "旧蔬菜批发市场",
+        "time": "07:18",
+        "location": "农业银行门口"
+      },
+      {
+        "name": "后吴公寓",
+        "time": "07:26",
+        "location": "下厝公交站"
+      },
+      {
+        "name": "特房樾琴湾站",
+        "time": "07:30",
+        "location": "特房樾琴湾西北181米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.62旭日线",
+    "stops": [
+      {
+        "name": "海沧医院",
+        "time": "06:59",
+        "location": "沧林三路与海裕路交接处旁海沧医院"
+      },
+      {
+        "name": "旭日海湾",
+        "time": "07:02",
+        "location": "旭日海湾西南门对面"
+      },
+      {
+        "name": "海上明珠家园",
+        "time": "07:04",
+        "location": "绿苑公厕"
+      },
+      {
+        "name": "海晟公交站",
+        "time": "07:07",
+        "location": "海晟公交站前20米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.63天湖线",
+    "stops": [
+      {
+        "name": "海发社区",
+        "time": "07:02",
+        "location": "海发社区门口"
+      },
+      {
+        "name": "天湖城10号门",
+        "time": "07:03",
+        "location": "天湖城7号门"
+      },
+      {
+        "name": "兴港花园",
+        "time": "07:05",
+        "location": "兴港路天桥对面"
+      },
+      {
+        "name": "都市恬园（下班在62号线）",
+        "time": "07:08",
+        "location": "沧林路都市恬园1号楼门口"
+      },
+      {
+        "name": "华兴花园东门",
+        "time": "07:10",
+        "location": "闽篮超市门口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.64杏北线",
+    "stops": [
+      {
+        "name": "内贸",
+        "time": "07:05",
+        "location": "东南医院对面"
+      },
+      {
+        "name": "橡树湾",
+        "time": "07:08",
+        "location": "橡树湾大门口"
+      },
+      {
+        "name": "建昌商业广场",
+        "time": "07:10",
+        "location": "公交站往前"
+      },
+      {
+        "name": "杏北小学",
+        "time": "07:15",
+        "location": "杏北小学公交站前"
+      },
+      {
+        "name": "聚镇",
+        "time": "07:16",
+        "location": "过天桥"
+      },
+      {
+        "name": "锦园新村站",
+        "time": "07:18",
+        "location": "锦园新村公交站旁"
+      },
+      {
+        "name": "城场村口",
+        "time": "07:50",
+        "location": "城场村口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.65后房线",
+    "stops": [
+      {
+        "name": "欧厝站",
+        "time": "07:18",
+        "location": "欧厝北路与新城中路交接口"
+      },
+      {
+        "name": "海峡现代城",
+        "time": "07:20",
+        "location": "纵一路与彭厝一路交叉口"
+      },
+      {
+        "name": "浦园路口",
+        "time": "07:23",
+        "location": "海峡现代城调头区附近"
+      },
+      {
+        "name": "金地峯上",
+        "time": "07:34",
+        "location": "新店中心小学北校区项目部西北283米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.66金龙线",
+    "stops": [
+      {
+        "name": "海浴路公交站",
+        "time": "07:01",
+        "location": "海浴路靠石塘村侧"
+      },
+      {
+        "name": "海沧建设银行公交站",
+        "time": "07:02",
+        "location": "建行正对面客家妹门斑马线"
+      },
+      {
+        "name": "海沧房产",
+        "time": "07:04",
+        "location": "沧一对面，工行门口斑马线"
+      },
+      {
+        "name": "东方高尔夫公交站",
+        "time": "07:11",
+        "location": "高尔夫公交车站旁"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.67海沧线",
+    "stops": [
+      {
+        "name": "文澜和著",
+        "time": "06:43",
+        "location": "东瑶地铁安居房边"
+      },
+      {
+        "name": "孚连一里",
+        "time": "06:47",
+        "location": "平安路邮政银行对面"
+      },
+      {
+        "name": "温头溪站",
+        "time": "06:50",
+        "location": "东孚西二路住宅水晶尚庭"
+      },
+      {
+        "name": "泰禾首玺",
+        "time": "06:53",
+        "location": "灌新路泰禾首玺对面"
+      },
+      {
+        "name": "庚西桥",
+        "time": "07:01",
+        "location": "新阳北路庚西桥头"
+      },
+      {
+        "name": "霞飞桥头",
+        "time": "07:05",
+        "location": "霞飞路霞飞桥头"
+      },
+      {
+        "name": "翁角路",
+        "time": "07:08",
+        "location": "翁角路明达北门公交站"
+      },
+      {
+        "name": "海沧万科",
+        "time": "07:10",
+        "location": "-"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.68康城线",
+    "stops": [
+      {
+        "name": "前场市头公交站",
+        "time": "07:00",
+        "location": "前场市头公交站前50米"
+      },
+      {
+        "name": "凤凰花城站",
+        "time": "07:01",
+        "location": "杏林万达对面"
+      },
+      {
+        "name": "大学康城二期",
+        "time": "07:05",
+        "location": "大学康城门口"
+      },
+      {
+        "name": "和美新城",
+        "time": "07:12",
+        "location": "和美新城四期南门"
+      },
+      {
+        "name": "软件园3期A区",
+        "time": "07:14",
+        "location": "夏商超市对面"
+      },
+      {
+        "name": "莲花新城悦园",
+        "time": "07:19",
+        "location": "杏前街道莲花社区卫生服务站旁"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.69 白礁线",
+    "stops": [
+      {
+        "name": "慈济宫",
+        "time": "06:40",
+        "location": "位于马青路公交站旁"
+      },
+      {
+        "name": "未来橙堡",
+        "time": "06:48",
+        "location": "未来橙堡北门"
+      },
+      {
+        "name": "海沧体育中心",
+        "time": "06:50",
+        "location": "体育中心公交站对面"
+      },
+      {
+        "name": "水岸名筑",
+        "time": "06:52",
+        "location": "兴港路水岸名筑天桥下"
+      },
+      {
+        "name": "京口",
+        "time": "06:55",
+        "location": "京口公交站"
+      },
+      {
+        "name": "北师大海沧附属学校",
+        "time": "06:56",
+        "location": "学校大门口对面"
+      },
+      {
+        "name": "未来海岸南门",
+        "time": "07:00",
+        "location": "未来海岸南门对面"
+      },
+      {
+        "name": "泰地站",
+        "time": "07:03",
+        "location": "东屿村公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.70灿坤线",
+    "stops": [
+      {
+        "name": "灿坤二号门",
+        "time": "06:45",
+        "location": "车博士汽车美容养护中心门口"
+      },
+      {
+        "name": "灿坤三号门",
+        "time": "06:48",
+        "location": "灿坤3号门公交站旁"
+      },
+      {
+        "name": "桥头村公交站",
+        "time": "06:52",
+        "location": "中骏广场角美万达路口"
+      },
+      {
+        "name": "中骏四季阳光（角美）",
+        "time": "06:57",
+        "location": "万益广场吉家家世界前三叉口"
+      },
+      {
+        "name": "洪岱路（集友公园）",
+        "time": "07:00",
+        "location": "第五医院红岱路口"
+      },
+      {
+        "name": "角海口路",
+        "time": "07:03",
+        "location": "洪岱路口公往东孚方向红绿灯"
+      },
+      {
+        "name": "大庵站",
+        "time": "07:07",
+        "location": "大庵村口"
+      },
+      {
+        "name": "官浔BRT站",
+        "time": "07:37",
+        "location": "BRT桥下上车"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.71西柯线",
+    "stops": [
+      {
+        "name": "同安汀溪水库站",
+        "time": "06:58",
+        "location": "同安汀溪水库公交站"
+      },
+      {
+        "name": "汀溪卫生院",
+        "time": "07:01",
+        "location": "同安汀溪卫生院门口"
+      },
+      {
+        "name": "朝辉路口站",
+        "time": "07:05",
+        "location": "朝辉路口公交站"
+      },
+      {
+        "name": "祥丰建材城公交站",
+        "time": "07:10",
+        "location": "祥丰建材城公交站"
+      },
+      {
+        "name": "大唐六期",
+        "time": "07:18",
+        "location": "双吉路与环城南路交叉路口太阳人机电旁"
+      },
+      {
+        "name": "阳翟公交站",
+        "time": "07:20",
+        "location": "希尔顿花园酒店路口处阳翟公交站"
+      },
+      {
+        "name": "同安第三医院",
+        "time": "07:22",
+        "location": "医院门对面天桥下"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.72南部新城线",
+    "stops": [
+      {
+        "name": "金箱里公交站",
+        "time": "07:19",
+        "location": "东界路奥体会展公交站"
+      },
+      {
+        "name": "阳光城翡丽湾",
+        "time": "07:25",
+        "location": "南美路阳光城翡丽湾三期门口"
+      },
+      {
+        "name": "明发半岛祥湾",
+        "time": "07:27",
+        "location": "南美路明发半岛祥湾B区"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "6号线+72号线 B线",
+    "stops": [
+      {
+        "name": "海景酒店中华城",
+        "time": "06:58",
+        "location": "镇海双十门口"
+      },
+      {
+        "name": "实验小学",
+        "time": "07:01",
+        "location": "实验小学地下通道口"
+      },
+      {
+        "name": "融侨铂樾府",
+        "time": "07:30",
+        "location": "蓬莱路过新澳路口往前60米"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "10号线+21号线 B线",
+    "stops": [
+      {
+        "name": "思明文体楼",
+        "time": "07:09",
+        "location": "思明文体楼前"
+      },
+      {
+        "name": "岭兜小区",
+        "time": "07:11",
+        "location": "岭兜小区门口"
+      },
+      {
+        "name": "岭兜二里公交站",
+        "time": "07:12",
+        "location": "岭兜二里全家福门口斑马线"
+      },
+      {
+        "name": "东坑站",
+        "time": "07:34",
+        "location": "翔安大道东坑站"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "No.39尚忠线 B",
+    "stops": [
+      {
+        "name": "钟宅红星美凯龙站",
+        "time": "07:17",
+        "location": "红星美凯龙站前30米"
+      },
+      {
+        "name": "五缘西二里公交站",
+        "time": "07:19",
+        "location": "五缘社区公交站"
+      },
+      {
+        "name": "惠灵顿路站",
+        "time": "07:21",
+        "location": "惠灵顿路公交站前50米"
+      },
+      {
+        "name": "厦门二中站",
+        "time": "07:23",
+        "location": "厦门二中门口"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.43万科线B线",
+    "stops": [
+      {
+        "name": "锦绣祥安",
+        "time": "07:28",
+        "location": "靠近五星三里3号楼的舫阳北路口处"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "44路B线",
+    "stops": [
+      {
+        "name": "大嶝码头",
+        "time": "07:13",
+        "location": "龙太子宫"
+      },
+      {
+        "name": "阳塘安居小区",
+        "time": "07:20",
+        "location": "阳塘安居小区口"
+      },
+      {
+        "name": "蔡厝",
+        "time": "07:24",
+        "location": "蔡厝地铁口"
+      },
+      {
+        "name": "后村村口公交站",
+        "time": "07:26",
+        "location": "后村地铁口"
+      },
+      {
+        "name": "汇景新城中心公交站",
+        "time": "07:36",
+        "location": "汇景公交站"
+      },
+      {
+        "name": "ABB HUB",
+        "time": "-",
+        "location": "ABB HUB"
+      }
+    ]
+  },
+  {
+    "name": "NO.45中骏线-B",
+    "stops": [
+      {
+        "name": "祥吴公交站",
+        "time": "07:37",
+        "location": "祥吴半坡潮汕牛肉火锅门口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.46黎安线B线",
+    "stops": [
+      {
+        "name": "黎安小镇",
+        "time": "07:30",
+        "location": "黎安小镇D区外公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.48海峡线 B",
+    "stops": [
+      {
+        "name": "新店地铁社区二期 （下班乘坐NO.48海峡线A）",
+        "time": "07:26",
+        "location": "会展家园二区路口"
+      },
+      {
+        "name": "新店怡然居 （下班乘坐洪前-返线）",
+        "time": "07:33",
+        "location": "凤翔街道旁"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.49乐海线 B",
+    "stops": [
+      {
+        "name": "银溪墅府公交站",
+        "time": "07:35",
+        "location": "滨洲五路银溪墅府公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.52厦大翔安线 B",
+    "stops": [
+      {
+        "name": "东方新城二期",
+        "time": "07:34",
+        "location": "东方新城路口，掉头区"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "54号线+58号线 B线",
+    "stops": [
+      {
+        "name": "园博园一号",
+        "time": "07:05",
+        "location": "杏锦路，靠近园博园一号的路口"
+      },
+      {
+        "name": "中航城公交站",
+        "time": "07:07",
+        "location": "杏锦路，靠近中航城A区的路口"
+      },
+      {
+        "name": "潘涂站",
+        "time": "07:34",
+        "location": "古龙文化园门口"
+      },
+      {
+        "name": "中海万锦熙岸",
+        "time": "07:36",
+        "location": "大门口前交叉路口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "61路B线",
+    "stops": [
+      {
+        "name": "同安城南站",
+        "time": "07:18",
+        "location": "西亭里红录灯旁边"
+      },
+      {
+        "name": "同安体育馆",
+        "time": "07:21",
+        "location": "体育馆公交车站"
+      },
+      {
+        "name": "祥平站",
+        "time": "07:25",
+        "location": "下厝公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "NO.65后房线 B",
+    "stops": [
+      {
+        "name": "翔城国际",
+        "time": "07:30",
+        "location": "小区门口"
+      },
+      {
+        "name": "洋塘居住区",
+        "time": "07:32",
+        "location": "一期往三期路口"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "66号线+67号线 B线",
+    "stops": [
+      {
+        "name": "海沧中学",
+        "time": "07:00",
+        "location": "新景路海沧中学对面"
+      },
+      {
+        "name": "海沧万科",
+        "time": "07:12",
+        "location": "海沧教师进修学校对面公交站"
+      },
+      {
+        "name": "海沧万科城公交站（仅上班）",
+        "time": "07:14",
+        "location": "海沧万科城新阳桥头天桥下"
+      },
+      {
+        "name": "万科里",
+        "time": "07:18",
+        "location": "杏林东路万科里公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  },
+  {
+    "name": "56号线+71号线 B线",
+    "stops": [
+      {
+        "name": "兴店社区公交站",
+        "time": "07:22",
+        "location": "汉景嘉园东30米，花言草语路口处"
+      },
+      {
+        "name": "同安工业集中区",
+        "time": "07:24",
+        "location": "舜弘现代城公交站前"
+      },
+      {
+        "name": "轻工食品园公交站",
+        "time": "07:30",
+        "location": "原西柯路口站调整至轻工食品园公交站"
+      },
+      {
+        "name": "ABB Hub",
+        "time": "-",
+        "location": "ABB Hub"
+      }
+    ]
+  }
+]
