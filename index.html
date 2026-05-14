@@ -705,13 +705,12 @@
         }
 
         function getRouteType(routeName) {
-            // 检查线路名称末尾是否有 A 或 B
-            if (routeName.endsWith(' A')) return 'A';
+            // 检查线路名称末尾是否有 B，有B的是B线，其他都是A线
             if (routeName.endsWith(' B')) return 'B';
             // 兼容其他格式
-            if (routeName.includes(' A ')) return 'A';
             if (routeName.includes(' B ')) return 'B';
-            return 'other';
+            // 非B线都是A线
+            return 'A';
         }
 
         function getRouteColor(routeType) {
