@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ABB班车线路查询系统</title>
-    <script src="https://api.map.baidu.com/api?v=3.0&ak=GvhbLgrt5Yab5cK1k8a8y8Q8"></script>
+    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=GvhbLgrt5Yab5cK1k8a8y8Q8"></script>
     <style>
         * {
             margin: 0;
@@ -656,11 +656,11 @@
         });
 
         function initMap() {
-            map = new BMap.Map('map');
-            map.centerAndZoom(new BMap.Point(118.0894, 24.4798), 11);
+            map = new BMapGL.Map('map');
+            map.centerAndZoom(new BMapGL.Point(118.0894, 24.4798), 11);
             map.enableScrollWheelZoom(true);
-            map.addControl(new BMap.ScaleControl());
-            map.addControl(new BMap.NavigationControl());
+            map.addControl(new BMapGL.ScaleControl());
+            map.addControl(new BMapGL.NavigationControl3D());
         }
 
         // 加载数据
@@ -854,11 +854,11 @@
             const stop = route.stops[stopIndex];
             
             if (stop.lng && stop.lat) {
-                const point = new BMap.Point(stop.lng, stop.lat);
+                const point = new BMapGL.Point(stop.lng, stop.lat);
                 map.centerAndZoom(point, 17);
                 document.getElementById('mobilePanel').classList.add('collapsed');
                 
-                const infoWindow = new BMap.InfoWindow(`
+                const infoWindow = new BMapGL.InfoWindow(`
                     <div style="padding: 10px; min-width: 150px;">
                         <h4 style="margin: 0 0 5px 0; color: #667eea;">${stop.name}</h4>
                         <p style="margin: 0; font-size: 12px; color: #666;">时间: ${stop.time || '未知'}</p>
@@ -936,19 +936,19 @@
             const points = [];
             route.stops.forEach((stop, i) => {
                 if (stop.lng && stop.lat) {
-                    const point = new BMap.Point(stop.lng, stop.lat);
+                    const point = new BMapGL.Point(stop.lng, stop.lat);
                     points.push(point);
                     
                     // 创建标注
-                    const marker = new BMap.Marker(point, {
-                        icon: new BMap.Icon(
+                    const marker = new BMapGL.Marker(point, {
+                        icon: new BMapGL.Icon(
                             'data:image/svg+xml;base64,' + btoa(`
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
                                     <circle cx="15" cy="15" r="12" fill="${color}" stroke="white" stroke-width="2"/>
                                     <text x="15" y="20" text-anchor="middle" fill="white" font-size="12">${i + 1}</text>
                                 </svg>
                             `),
-                            new BMap.Size(30, 30)
+                            new BMapGL.Size(30, 30)
                         )
                     });
                     map.addOverlay(marker);
@@ -958,7 +958,7 @@
             
             // 绘制线路
             if (points.length > 1) {
-                const polyline = new BMap.Polyline(points, {
+                const polyline = new BMapGL.Polyline(points, {
                     strokeColor: color,
                     strokeWeight: 4,
                     strokeOpacity: 0.8
@@ -976,13 +976,13 @@
             const stop = route.stops[stopIndex];
             
             if (stop.lng && stop.lat) {
-                const point = new BMap.Point(stop.lng, stop.lat);
+                const point = new BMapGL.Point(stop.lng, stop.lat);
                 map.centerAndZoom(point, 17);
                 
                 const type = getRouteType(route.name);
                 const color = getRouteColor(type);
                 
-                const infoWindow = new BMap.InfoWindow(`
+                const infoWindow = new BMapGL.InfoWindow(`
                     <div style="padding: 15px; min-width: 200px;">
                         <h4 style="margin: 0 0 10px 0; color: ${color};">${stop.name}</h4>
                         <p style="margin: 5px 0; font-size: 14px;"><strong>时间:</strong> ${stop.time || '未知'}</p>
