@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABB班车线路图 V2</title>
+    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=kw4Eyuhl9lku7XORPO28TMVzD1wj7ZWD"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        /* 头部 */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        /* 主容器 */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+        
+        /* 地图容器 */
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            width: 300px;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .sidebar-header {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 16px;
+            color: #333;
+        }
+        
+        /* 图例 */
+        .legend {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .legend-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .legend-item:hover {
+            background: #e9ecef;
+        }
+        
+        .legend-item.hidden {
+            opacity: 0.5;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+            margin-right: 10px;
+        }
+        
+        .legend-text {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        /* 统计信息 */
+        .stats {
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .stat-label {
+            color: #666;
+        }
+        
+        .stat-value {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* 控制按钮 */
+        .controls {
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        
+        .control-btn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #2a5298;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1e3c72;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 200px;
+                order: 2;
+            }
+            
+            .map-container {
+                height: calc(100vh - 270px);
+                order: 1;
+            }
+            
+            .legend {
+                max-height: 120px;
+            }
+        }
+        
+        /* 加载提示 */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2a5298;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ABB班车线路图 V2</h1>
+        <div class="subtitle">所有线路同时显示 | 点击图例可显示/隐藏线路</div>
+    </div>
+    
+    <div class="main-container">
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <div>正在加载地图数据...</div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>线路图例</h2>
+            </div>
+            
+            <div class="legend" id="legend">
+                <div class="legend-title">点击切换显示/隐藏</div>
+                <div id="legendContent"></div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">总线路数</span>
+                    <span class="stat-value" id="totalRoutes">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">总站点数</span>
+                    <span class="stat-value" id="totalStops">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">显示线路</span>
+                    <span class="stat-value" id="visibleRoutes">-</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn btn-primary" onclick="showAllRoutes()">显示所有线路</button>
+                <button class="control-btn btn-secondary" onclick="hideAllRoutes()">隐藏所有线路</button>
+                <button class="control-btn btn-secondary" onclick="fitAllRoutes()">适应所有线路</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 线路颜色配置（类似北京地铁颜色）
+        const routeColors = [
+            '#A4343A', // 1号线红
+            '#004B87', // 2号线蓝
+            '#009B77', // 3号线绿
+            '#F9E700', // 4号线黄
+            '#8F4F8B', // 5号线紫
+            '#D29700', // 6号线棕
+            '#FFC0CB', // 7号线粉
+            '#00BFFF', // 8号线浅蓝
+            '#9ACD32', // 9号线黄绿
+            '#FF6347', // 10号线番茄红
+            '#4169E1', // 11号线皇家蓝
+            '#32CD32', // 12号线酸橙绿
+            '#FF8C00', // 13号线深橙
+            '#9370DB', // 14号线中紫
+            '#20B2AA', // 15号线浅海绿
+            '#DC143C', // 16号线深红
+            '#4682B4', // 17号线钢蓝
+            '#DAA520', // 18号线金菊黄
+            '#5F9EA0', // 19号线海绿
+            '#FF1493', // 20号线深粉
+            '#00CED1', // 21号线深青
+            '#B22222', // 22号线耐火砖红
+            '#228B22', // 23号线森林绿
+            '#4B0082', // 24号线靛青
+            '#FF4500', // 25号线橙红
+            '#2E8B57', // 26号线海绿
+            '#8B4513', // 27号线马鞍棕
+            '#9400D3', // 28号线紫罗兰
+            '#FF69B4', // 29号线热粉
+            '#1E90FF', // 30号线道奇蓝
+            '#B8860B', // 31号线暗金
+            '#556B2F', // 32号线暗橄榄绿
+            '#8B008B', // 33号线深洋红
+            '#CD853F', // 34号线秘鲁色
+            '#9932CC', // 35号线暗兰花紫
+            '#E9967A', // 36号线暗鲑鱼色
+            '#8FBC8F', // 37号线暗海绿
+            '#483D8B', // 38号线暗板岩蓝
+            '#2F4F4F', // 39号线暗石板灰
+            '#00FA9A', // 40号线中春绿
+            '#F4A460', // 41号线沙棕
+            '#6A5ACD', // 42号线板岩蓝
+            '#7FFF00', // 43号线查特酒绿
+            '#D2691E', // 44号线巧克力色
+            '#6495ED', // 45号线矢车菊蓝
+            '#DC143C', // 46号线深红
+            '#00FFFF', // 47号线青色
+            '#BDB76B', // 48号线暗卡其
+            '#8B0000', // 49号线暗红
+            '#F0E68C', // 50号线卡其
+        ];
+        
+        let map;
+        let routesData = [];
+        let routePolylines = {};
+        let routeMarkers = {};
+        let visibleRoutesSet = new Set();
+        
+        // 初始化地图
+        function initMap() {
+            map = new BMapGL.Map('map');
+            map.centerAndZoom(new BMapGL.Point(118.11, 24.50), 12);
+            map.enableScrollWheelZoom(true);
+            map.addControl(new BMapGL.ScaleControl());
+            map.addControl(new BMapGL.NavigationControl3D());
+            
+            // 加载数据
+            loadData();
+        }
+        
+        // 加载数据
+        async function loadData() {
+            try {
+                // 加载线路数据
+                const routesResponse = await fetch('routes_data.json');
+                routesData = await routesResponse.json();
+                
+                // 加载坐标数据
+                const coordsResponse = await fetch('coordinates.json');
+                const coordinates = await coordsResponse.json();
+                
+                // 更新坐标
+                updateCoordinates(coordinates);
+                
+                // 渲染地图
+                renderMap();
+                
+                // 更新统计
+                updateStats();
+                
+                // 隐藏加载提示
+                document.getElementById('loading').style.display = 'none';
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('loading').innerHTML = '<div style="color: red;">加载失败，请刷新页面重试</div>';
+            }
+        }
+        
+        // 更新坐标
+        function updateCoordinates(coordinates) {
+            routesData.forEach(route => {
+                route.stops.forEach(stop => {
+                    const stopName = stop.name.trim();
+                    if (coordinates[stopName]) {
+                        stop.lng = coordinates[stopName].lng;
+                        stop.lat = coordinates[stopName].lat;
+                    }
+                });
+            });
+        }
+        
+        // 渲染地图
+        function renderMap() {
+            const legendContent = document.getElementById('legendContent');
+            
+            routesData.forEach((route, index) => {
+                const color = routeColors[index % routeColors.length];
+                const routeId = `route_${index}`;
+                
+                // 创建图例项
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.dataset.routeId = routeId;
+                legendItem.onclick = () => toggleRoute(routeId);
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background: ${color}"></div>
+                    <div class="legend-text">${route.name}</div>
+                `;
+                legendContent.appendChild(legendItem);
+                
+                // 创建路线折线
+                const points = route.stops
+                    .filter(stop => stop.lng && stop.lat)
+                    .map(stop => new BMapGL.Point(stop.lng, stop.lat));
+                
+                if (points.length > 0) {
+                    const polyline = new BMapGL.Polyline(points, {
+                        strokeColor: color,
+                        strokeWeight: 4,
+                        strokeOpacity: 0.9,
+                        strokeStyle: 'solid'
+                    });
+                    map.addOverlay(polyline);
+                    routePolylines[routeId] = polyline;
+                    
+                    // 创建站点标记
+                    const markers = [];
+                    route.stops.forEach((stop, stopIndex) => {
+                        if (stop.lng && stop.lat) {
+                            const point = new BMapGL.Point(stop.lng, stop.lat);
+                            
+                            // 创建标记
+                            const marker = new BMapGL.Marker(point, {
+                                icon: createStationIcon(color, stopIndex + 1)
+                            });
+                            
+                            // 创建信息窗口
+                            const infoWindow = new BMapGL.InfoWindow(`
+                                <div style="padding: 10px; min-width: 150px;">
+                                    <div style="font-weight: bold; margin-bottom: 5px; color: ${color};">${route.name}</div>
+                                    <div style="font-size: 14px; margin-bottom: 3px;">${stop.name}</div>
+                                    <div style="font-size: 12px; color: #666;">时间: ${stop.time || '未指定'}</div>
+                                    <div style="font-size: 12px; color: #666;">位置: ${stop.location || '未指定'}</div>
+                                </div>
+                            `, {
+                                width: 200,
+                                title: ''
+                            });
+                            
+                            marker.addEventListener('click', () => {
+                                map.openInfoWindow(infoWindow, point);
+                            });
+                            
+                            map.addOverlay(marker);
+                            markers.push(marker);
+                        }
+                    });
+                    
+                    routeMarkers[routeId] = markers;
+                    visibleRoutesSet.add(routeId);
+                }
+            });
+            
+            // 适应所有线路
+            fitAllRoutes();
+        }
+        
+        // 创建站点图标
+        function createStationIcon(color, number) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 24;
+            canvas.height = 24;
+            const ctx = canvas.getContext('2d');
+            
+            // 绘制圆点
+            ctx.beginPath();
+            ctx.arc(12, 12, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // 绘制数字
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(number.toString(), 12, 12);
+            
+            return new BMapGL.Icon(canvas.toDataURL(), new BMapGL.Size(24, 24), {
+                anchor: new BMapGL.Size(12, 12)
+            });
+        }
+        
+        // 切换线路显示/隐藏
+        function toggleRoute(routeId) {
+            const legendItem = document.querySelector(`[data-route-id="${routeId}"]`);
+            
+            if (visibleRoutesSet.has(routeId)) {
+                // 隐藏
+                visibleRoutesSet.delete(routeId);
+                legendItem.classList.add('hidden');
+                
+                if (routePolylines[routeId]) {
+                    routePolylines[routeId].hide();
+                }
+                if (routeMarkers[routeId]) {
+                    routeMarkers[routeId].forEach(marker => marker.hide());
+                }
+            } else {
+                // 显示
+                visibleRoutesSet.add(routeId);
+                legendItem.classList.remove('hidden');
+                
+                if (routePolylines[routeId]) {
+                    routePolylines[routeId].show();
+                }
+                if (routeMarkers[routeId]) {
+                    routeMarkers[routeId].forEach(marker => marker.show());
+                }
+            }
+            
+            updateStats();
+        }
+        
+        // 显示所有线路
+        function showAllRoutes() {
+            Object.keys(routePolylines).forEach(routeId => {
+                visibleRoutesSet.add(routeId);
+                
+                if (routePolylines[routeId]) {
+                    routePolylines[routeId].show();
+                }
+                if (routeMarkers[routeId]) {
+                    routeMarkers[routeId].forEach(marker => marker.show());
+                }
+            });
+            
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.classList.remove('hidden');
+            });
+            
+            updateStats();
+        }
+        
+        // 隐藏所有线路
+        function hideAllRoutes() {
+            Object.keys(routePolylines).forEach(routeId => {
+                visibleRoutesSet.delete(routeId);
+                
+                if (routePolylines[routeId]) {
+                    routePolylines[routeId].hide();
+                }
+                if (routeMarkers[routeId]) {
+                    routeMarkers[routeId].forEach(marker => marker.hide());
+                }
+            });
+            
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.classList.add('hidden');
+            });
+            
+            updateStats();
+        }
+        
+        // 适应所有线路
+        function fitAllRoutes() {
+            const allPoints = [];
+            Object.values(routePolylines).forEach(polyline => {
+                if (polyline && polyline.getPath) {
+                    allPoints.push(...polyline.getPath());
+                }
+            });
+            
+            if (allPoints.length > 0) {
+                map.setViewport(allPoints, {
+                    margins: [50, 50, 50, 50]
+                });
+            }
+        }
+        
+        // 更新统计
+        function updateStats() {
+            let totalStops = 0;
+            routesData.forEach(route => {
+                totalStops += route.stops.length;
+            });
+            
+            document.getElementById('totalRoutes').textContent = routesData.length;
+            document.getElementById('totalStops').textContent = totalStops;
+            document.getElementById('visibleRoutes').textContent = visibleRoutesSet.size;
+        }
+        
+        // 页面加载完成后初始化地图
+        window.onload = initMap;
+    </script>
+</body>
+</html>
