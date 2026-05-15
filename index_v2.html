@@ -402,6 +402,12 @@
                 const color = routeColors[index % routeColors.length];
                 const routeId = `route_${index}`;
                 
+                // 过滤掉ABB HUB站点
+                const filteredStops = route.stops.filter(stop => {
+                    const stopName = stop.name.trim().toUpperCase();
+                    return stopName !== 'ABB HUB' && stopName !== 'ABBHUB';
+                });
+                
                 // 创建图例项
                 const legendItem = document.createElement('div');
                 legendItem.className = 'legend-item';
@@ -413,8 +419,8 @@
                 `;
                 legendContent.appendChild(legendItem);
                 
-                // 创建路线折线
-                const points = route.stops
+                // 创建路线折线（使用过滤后的站点）
+                const points = filteredStops
                     .filter(stop => stop.lng && stop.lat)
                     .map(stop => new BMapGL.Point(stop.lng, stop.lat));
                 
@@ -428,9 +434,9 @@
                     map.addOverlay(polyline);
                     routePolylines[routeId] = polyline;
                     
-                    // 创建站点标记
+                    // 创建站点标记（使用过滤后的站点）
                     const markers = [];
-                    route.stops.forEach((stop, stopIndex) => {
+                    filteredStops.forEach((stop, stopIndex) => {
                         if (stop.lng && stop.lat) {
                             const point = new BMapGL.Point(stop.lng, stop.lat);
                             
