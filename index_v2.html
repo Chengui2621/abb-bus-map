@@ -752,17 +752,18 @@
         
         // 隐藏所有线路连接线（但保留站点标记）
         function hideAllLines() {
-            visibleRoutesSet.clear();
-            
-            // 隐藏所有线路折线
+            // 隐藏所有线路折线，但保留在地图上（使用hide）
             Object.values(routePolylines).forEach(line => {
-                map.removeOverlay(line);
+                line.hide();
             });
             
             // 更新图例项的显示状态
             document.querySelectorAll('.legend-item').forEach(item => {
                 item.classList.add('hidden');
             });
+            
+            // 清空可见集合
+            visibleRoutesSet.clear();
             
             // 保留站点标记，只更新统计
             updateStats();
@@ -770,17 +771,15 @@
         
         // 隐藏所有站点和连接线
         function hideAllLinesAndStops() {
-            visibleRoutesSet.clear();
-            
             // 隐藏所有线路折线
             Object.values(routePolylines).forEach(line => {
-                map.removeOverlay(line);
+                line.hide();
             });
             
             // 隐藏所有站点标记
             Object.values(routeMarkers).forEach(markers => {
                 markers.forEach(marker => {
-                    map.removeOverlay(marker);
+                    marker.hide();
                 });
             });
             
@@ -788,6 +787,9 @@
             document.querySelectorAll('.legend-item').forEach(item => {
                 item.classList.add('hidden');
             });
+            
+            // 清空可见集合
+            visibleRoutesSet.clear();
             
             // 更新统计
             updateStats();
