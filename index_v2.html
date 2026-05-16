@@ -758,8 +758,12 @@
                 map.removeOverlay(line);
             });
             
-            // 保留站点标记，只更新图例状态
-            updateLegend();
+            // 更新图例项的显示状态
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.classList.add('hidden');
+            });
+            
+            // 保留站点标记，只更新统计
             updateStats();
         }
         
