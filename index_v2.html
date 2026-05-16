@@ -103,7 +103,9 @@
         /* 主容器 */
         .main-container {
             display: flex;
+            flex-direction: column;
             height: calc(100vh - 70px);
+            position: relative;
         }
         
         /* 地图容器 */
@@ -117,25 +119,71 @@
             height: 100%;
         }
         
-        /* 侧边栏 */
-        .sidebar {
-            width: 300px;
+        /* 底部折叠面板 */
+        .bottom-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: white;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
         }
         
-        .sidebar-header {
-            padding: 15px;
+        .bottom-panel.collapsed {
+            max-height: 50px;
+        }
+        
+        .bottom-panel.expanded {
+            max-height: 50vh;
+        }
+        
+        .bottom-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
             background: #f8f9fa;
             border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            user-select: none;
         }
         
-        .sidebar-header h2 {
+        .bottom-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 16px;
+            font-weight: 600;
             color: #333;
+        }
+        
+        .bottom-panel-count {
+            font-size: 14px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .bottom-panel-toggle {
+            font-size: 14px;
+            color: #666;
+            transition: transform 0.3s;
+        }
+        
+        .bottom-panel.collapsed .bottom-panel-toggle {
+            transform: rotate(-90deg);
+        }
+        
+        .bottom-panel-content {
+            overflow-y: auto;
+            max-height: calc(50vh - 50px);
+            transition: opacity 0.3s;
+        }
+        
+        .bottom-panel.collapsed .bottom-panel-content {
+            opacity: 0;
+            pointer-events: none;
         }
         
         /* 图例 */
@@ -326,20 +374,29 @@
             </div>
         </div>
         
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2>线路图例</h2>
+        <!-- 底部折叠面板 -->
+        <div class="bottom-panel" id="bottomPanel">
+            <div class="bottom-panel-header" onclick="toggleBottomPanel()">
+                <div class="bottom-panel-title">
+                    <span>线路图例</span>
+                    <span class="bottom-panel-count" id="visibleCount">(79/79)</span>
+                </div>
+                <div class="bottom-panel-toggle">
+                    <span id="toggleIcon">▼</span>
+                </div>
             </div>
             
-            <div class="legend" id="legend">
-                <div class="legend-title">点击切换显示/隐藏</div>
-                <div id="legendContent"></div>
-            </div>
-            
-            <div class="controls">
-                <button class="control-btn btn-primary" onclick="showAllRoutes()">显示所有线路</button>
-                <button class="control-btn btn-secondary" onclick="hideAllRoutes()">隐藏所有线路</button>
-                <button class="control-btn btn-secondary" onclick="fitAllRoutes()">适应所有线路</button>
+            <div class="bottom-panel-content" id="bottomPanelContent">
+                <div class="legend" id="legend">
+                    <div class="legend-title">点击切换显示/隐藏</div>
+                    <div id="legendContent"></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn btn-primary" onclick="showAllRoutes()">显示所有线路</button>
+                    <button class="control-btn btn-secondary" onclick="hideAllLines()">隐藏所有线路连接线</button>
+                    <button class="control-btn btn-secondary" onclick="fitAllRoutes()">适应所有线路</button>
+                </div>
             </div>
         </div>
     </div>
@@ -439,6 +496,10 @@
                 
                 // 隐藏加载提示
                 document.getElementById('loading').style.display = 'none';
+                
+                // 默认折叠底部面板
+                document.getElementById('bottomPanel').classList.add('collapsed');
+                document.getElementById('toggleIcon').textContent = '▶';
                 
             } catch (error) {
                 console.error('加载数据失败:', error);
@@ -663,15 +724,43 @@
                 totalStops += route.stops.length;
             });
             
-            // 更新侧边栏统计
-            document.getElementById('totalRoutes').textContent = routesData.length;
-            document.getElementById('totalStops').textContent = totalStops;
-            document.getElementById('visibleRoutes').textContent = visibleRoutesSet.size;
-            
             // 更新header统计
             document.getElementById('headerTotalRoutes').textContent = routesData.length;
             document.getElementById('headerTotalStops').textContent = totalStops;
             document.getElementById('headerVisibleRoutes').textContent = visibleRoutesSet.size;
+            
+            // 更新底部面板计数
+            document.getElementById('visibleCount').textContent = `(${visibleRoutesSet.size}/${routesData.length})`;
+        }
+        
+        // 切换底部面板
+        function toggleBottomPanel() {
+            const panel = document.getElementById('bottomPanel');
+            const icon = document.getElementById('toggleIcon');
+            
+            if (panel.classList.contains('collapsed')) {
+                panel.classList.remove('collapsed');
+                panel.classList.add('expanded');
+                icon.textContent = '▼';
+            } else {
+                panel.classList.remove('expanded');
+                panel.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        }
+        
+        // 隐藏所有线路连接线（但保留站点标记）
+        function hideAllLines() {
+            visibleRoutesSet.clear();
+            
+            // 隐藏所有线路折线
+            Object.values(routeLines).forEach(line => {
+                map.removeOverlay(line);
+            });
+            
+            // 保留站点标记，只更新图例状态
+            updateLegend();
+            updateStats();
         }
         
         // 页面加载完成后初始化地图
