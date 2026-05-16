@@ -395,6 +395,7 @@
                 <div class="controls">
                     <button class="control-btn btn-primary" onclick="showAllRoutes()">显示所有线路</button>
                     <button class="control-btn btn-secondary" onclick="hideAllLines()">隐藏所有线路连接线</button>
+                    <button class="control-btn btn-secondary" onclick="hideAllLinesAndStops()">隐藏所有站点和连接线</button>
                     <button class="control-btn btn-secondary" onclick="fitAllRoutes()">适应所有线路</button>
                 </div>
             </div>
@@ -764,6 +765,31 @@
             });
             
             // 保留站点标记，只更新统计
+            updateStats();
+        }
+        
+        // 隐藏所有站点和连接线
+        function hideAllLinesAndStops() {
+            visibleRoutesSet.clear();
+            
+            // 隐藏所有线路折线
+            Object.values(routePolylines).forEach(line => {
+                map.removeOverlay(line);
+            });
+            
+            // 隐藏所有站点标记
+            Object.values(routeMarkers).forEach(markers => {
+                markers.forEach(marker => {
+                    map.removeOverlay(marker);
+                });
+            });
+            
+            // 更新图例项的显示状态
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.classList.add('hidden');
+            });
+            
+            // 更新统计
             updateStats();
         }
         
